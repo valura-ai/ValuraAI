@@ -1,0 +1,21 @@
+version: "3"
+
+volumes:
+  database:
+    driver: local
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: .config/Dockerfile
+      args:
+        DATABASE_URL: ${DATABASE_URL}
+        DIRECT_URL: ${DIRECT_URL}
+    image: valura_ai_web
+    container_name: valura_ai_web
+    restart: always
+    ports:
+      - "80:80"
+    env_file:
+      - .env
