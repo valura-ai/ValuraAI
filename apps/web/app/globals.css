@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "TWK Lausanne";
+  src: url("/fonts/TWK Lausanne 350-normal-400-100.ttf") format("truetype");
+  font-weight: 350;
+  font-style: normal;
+}
+
+body {
+  font-family: "TWK Lausanne", sans-serif;
+}
