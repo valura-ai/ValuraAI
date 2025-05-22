@@ -19,3 +19,12 @@ module.exports = {
   },
   plugins: [],
 };
+module.exports = {
+  theme: {
+    extend: {
+      fontFamily: {
+        junicode: ['Junicode', 'serif'],
+      },
+    },
+  },
+}

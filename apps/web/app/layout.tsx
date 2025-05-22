@@ -18,6 +18,7 @@ export default function RootLayout({
         <AuthKitProvider>
           {children}
         </AuthKitProvider>
+        <link href="https://fonts.googleapis.com/css2?family=Junicode&display=swap" rel="stylesheet" />
       </body>
     </html>
   );
