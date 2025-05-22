@@ -3,8 +3,10 @@ import { Navbar } from "@web/components/Navbar";
 import Footer from "@web/landing/components/layout/Footer";
 import { withAuth } from "@workos-inc/authkit-nextjs";
 
+
 export default async function AccountPage() {
   const { user, role, permissions } = await withAuth({ ensureSignedIn: true });
+  console.log()
 
   const userFields = [
     ["First name", user?.firstName],
