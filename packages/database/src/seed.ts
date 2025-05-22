@@ -1,32 +1,46 @@
 import { prisma } from "./client";
 
-import type { User } from "../generated/client";
-
 const DEFAULT_USERS = [
-  // Add your own user to pre-populate the database with
   {
-    name: "Tim Apple",
-    email: "tim@apple.com",
+    workosId: "workos_1",
+    email: "alice@example.com",
+    firstName: "Alice",
+    lastName: "Smith",
+    mobileNumber: "1234567890",
+    kycStatus: "PENDING" as const,
+    mobileVerification: "PENDING" as const,
   },
-] as Array<Partial<User>>;
+  {
+    workosId: "workos_2",
+    email: "bob@example.com",
+    firstName: "Bob",
+    lastName: "Johnson",
+    mobileNumber: "9876543210",
+    kycStatus: "DONE" as const,
+    mobileVerification: "DONE" as const,
+  },
+];
 
 (async () => {
   try {
     await Promise.all(
       DEFAULT_USERS.map((user) =>
         prisma.user.upsert({
-          where: {
-            email: user.email!,
-          },
+          where: { email: user.email },
           update: {
             ...user,
+            kycStatus: user.kycStatus,
+            mobileVerification: user.mobileVerification,
           },
           create: {
             ...user,
+            kycStatus: user.kycStatus,
+            mobileVerification: user.mobileVerification,
           },
         })
       )
     );
+    console.log("Seeded users successfully");
   } catch (error) {
     console.error(error);
     process.exit(1);

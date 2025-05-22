@@ -5845,9 +5845,15 @@ var require_client = __commonJS({
     });
     exports2.Prisma.UserScalarFieldEnum = {
       id: "id",
-      name: "name",
+      workosId: "workosId",
       email: "email",
-      emailVerified: "emailVerified"
+      firstName: "firstName",
+      lastName: "lastName",
+      mobileNumber: "mobileNumber",
+      kycStatus: "kycStatus",
+      mobileVerification: "mobileVerification",
+      createdAt: "createdAt",
+      updatedAt: "updatedAt"
     };
     exports2.Prisma.SortOrder = {
       asc: "asc",
@@ -5860,6 +5866,14 @@ var require_client = __commonJS({
     exports2.Prisma.NullsOrder = {
       first: "first",
       last: "last"
+    };
+    exports2.KycStatus = exports2.$Enums.KycStatus = {
+      PENDING: "PENDING",
+      DONE: "DONE"
+    };
+    exports2.VerificationStatus = exports2.$Enums.VerificationStatus = {
+      PENDING: "PENDING",
+      DONE: "DONE"
     };
     exports2.Prisma.ModelName = {
       User: "User"
@@ -5909,8 +5923,8 @@ var require_client = __commonJS({
           }
         }
       },
-      "inlineSchema": '// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = "prisma-client-js"\n  output   = "../generated/client"\n}\n\ndatasource db {\n  provider  = "postgresql"\n  url       = env("DATABASE_URL")\n  directUrl = env("DIRECT_URL")\n}\n\nmodel User {\n  id            String    @id @default(cuid())\n  name          String?\n  email         String?   @unique\n  emailVerified DateTime?\n}\n',
-      "inlineSchemaHash": "a8b35a51b88b5222a00378753b67d6b84ceaa3275008ca3f7cea9f34b9687941",
+      "inlineSchema": '// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = "prisma-client-js"\n  output   = "../generated/client"\n}\n\ndatasource db {\n  provider  = "postgresql"\n  url       = env("DATABASE_URL")\n  directUrl = env("DIRECT_URL")\n}\n\nmodel User {\n  id                 String             @id @default(cuid())\n  workosId           String?            @unique\n  email              String?            @unique\n  firstName          String?\n  lastName           String?\n  mobileNumber       String? // not required\n  kycStatus          KycStatus          @default(PENDING)\n  mobileVerification VerificationStatus @default(PENDING)\n  createdAt          DateTime?          @default(now())\n  updatedAt          DateTime?          @updatedAt\n}\n\nenum KycStatus {\n  PENDING\n  DONE\n}\n\nenum VerificationStatus {\n  PENDING\n  DONE\n}\n',
+      "inlineSchemaHash": "8215f8e972e43b1e7f488fd9db7e1f48db5a849be10c06ad714268cb72355728",
       "copyEngine": true
     };
     var fs = require("fs");
@@ -5926,7 +5940,7 @@ var require_client = __commonJS({
       config.dirname = path.join(process.cwd(), alternativePath);
       config.isBundled = true;
     }
-    config.runtimeDataModel = JSON.parse('{"models":{"User":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":null,"default":{"name":"cuid","args":[1]},"isGenerated":false,"isUpdatedAt":false},{"name":"name","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"email","kind":"scalar","isList":false,"isRequired":false,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"emailVerified","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":null,"isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false}},"enums":{},"types":{}}');
+    config.runtimeDataModel = JSON.parse('{"models":{"User":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":null,"default":{"name":"cuid","args":[1]},"isGenerated":false,"isUpdatedAt":false},{"name":"workosId","kind":"scalar","isList":false,"isRequired":false,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"email","kind":"scalar","isList":false,"isRequired":false,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"firstName","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"lastName","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"mobileNumber","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"kycStatus","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"KycStatus","nativeType":null,"default":"PENDING","isGenerated":false,"isUpdatedAt":false},{"name":"mobileVerification","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"VerificationStatus","nativeType":null,"default":"PENDING","isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":null,"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":null,"isGenerated":false,"isUpdatedAt":true}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false}},"enums":{"KycStatus":{"values":[{"name":"PENDING","dbName":null},{"name":"DONE","dbName":null}],"dbName":null},"VerificationStatus":{"values":[{"name":"PENDING","dbName":null},{"name":"DONE","dbName":null}],"dbName":null}},"types":{}}');
     defineDmmfProperty2(exports2.Prisma, config.runtimeDataModel);
     config.engineWasm = void 0;
     config.compilerWasm = void 0;
@@ -5958,10 +5972,23 @@ if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
 // src/seed.ts
 var DEFAULT_USERS = [
-  // Add your own user to pre-populate the database with
   {
-    name: "Tim Apple",
-    email: "tim@apple.com"
+    workosId: "workos_1",
+    email: "alice@example.com",
+    firstName: "Alice",
+    lastName: "Smith",
+    mobileNumber: "1234567890",
+    kycStatus: "PENDING",
+    mobileVerification: "PENDING"
+  },
+  {
+    workosId: "workos_2",
+    email: "bob@example.com",
+    firstName: "Bob",
+    lastName: "Johnson",
+    mobileNumber: "9876543210",
+    kycStatus: "DONE",
+    mobileVerification: "DONE"
   }
 ];
 (async () => {
@@ -5969,18 +5996,21 @@ var DEFAULT_USERS = [
     await Promise.all(
       DEFAULT_USERS.map(
         (user) => prisma.user.upsert({
-          where: {
-            email: user.email
-          },
+          where: { email: user.email },
           update: {
-            ...user
+            ...user,
+            kycStatus: user.kycStatus,
+            mobileVerification: user.mobileVerification
           },
           create: {
-            ...user
+            ...user,
+            kycStatus: user.kycStatus,
+            mobileVerification: user.mobileVerification
           }
         })
       )
     );
+    console.log("Seeded users successfully");
   } catch (error) {
     console.error(error);
     process.exit(1);
