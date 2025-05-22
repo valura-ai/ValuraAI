@@ -1,13 +1,6 @@
-export const dynamic = "force-dynamic";
 
-export default async function IndexPage() {
-  const res = await fetch("http://localhost:3000/api/user", { cache: "no-store" });
-  const users = await res.json();
+import { redirect } from "next/navigation";
 
-  return (
-    <div>
-      <h1>Hello World</h1>
-      <pre>{JSON.stringify(users, null, 2)}</pre>
-    </div>
-  );
+export default function IndexPage() {
+  redirect("/landing");
 }
