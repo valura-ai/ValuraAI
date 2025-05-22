@@ -4,4 +4,4 @@ export function getKeyName(...args: string[]) {
     return `valura:${args.join(':')}`;
 }
 
-export const exampleCache = (key: string) => getKeyName('user', key);
+export const userCache = (key: string) => getKeyName('user', key);
