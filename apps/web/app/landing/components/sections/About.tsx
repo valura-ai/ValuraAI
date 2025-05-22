@@ -1,5 +1,7 @@
 import React from "react";
 
+
+
 const About = () => {
   return (
     <section className="bg-[rgba(0,20,35,1)] flex flex-col overflow-hidden items-center justify-center px-20 py-[136px] max-md:max-w-full max-md:px-5 max-md:py-[100px]">
@@ -15,14 +17,17 @@ const About = () => {
           Fast, flexible and secure international money transfers across the
           world.
         </p>
-        <button className="bg-cyan-400 flex items-stretch gap-[7px] text-lg text-black font-semibold tracking-[-0.25px] leading-loose mt-10 px-8 py-4 rounded-[64px] max-md:px-5">
+        <a
+          href="api/auth/login"
+          className="bg-cyan-400 flex items-stretch gap-[7px] text-lg text-black font-semibold tracking-[-0.25px] leading-loose mt-10 px-8 py-4 rounded-[64px] max-md:px-5"
+        >
           <span>Create account</span>
           <img
             src="https://cdn.builder.io/api/v1/image/assets/ca7ec7c7d94147318bebe8b1c8ccdcac/cd13e47e06552876935501c0b22e84322bb2669c?placeholderIfAbsent=true"
             alt="Arrow"
             className="aspect-[1] object-contain w-[22px] shrink-0 my-auto"
           />
-        </button>
+        </a>
 
         {/* Features Grid */}
         <div className="grid grid-cols-4 gap-5 mt-24 max-md:grid-cols-1 max-md:mt-10">

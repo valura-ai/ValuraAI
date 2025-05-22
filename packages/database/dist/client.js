@@ -5873,7 +5873,7 @@ var require_client = __commonJS({
           "value": "prisma-client-js"
         },
         "output": {
-          "value": "/Users/anshu/Developer/ValuraAI/packages/database/generated/client",
+          "value": "/Users/sudarshan/Documents/2CentsCapital/ValuraAI/packages/database/generated/client",
           "fromEnvVar": null
         },
         "config": {
@@ -5887,11 +5887,12 @@ var require_client = __commonJS({
           }
         ],
         "previewFeatures": [],
-        "sourceFilePath": "/Users/anshu/Developer/ValuraAI/packages/database/prisma/schema.prisma",
+        "sourceFilePath": "/Users/sudarshan/Documents/2CentsCapital/ValuraAI/packages/database/prisma/schema.prisma",
         "isCustomOutput": true
       },
       "relativeEnvPaths": {
-        "rootEnvPath": null
+        "rootEnvPath": null,
+        "schemaEnvPath": "../../.env"
       },
       "relativePath": "../../prisma",
       "clientVersion": "6.8.2",
