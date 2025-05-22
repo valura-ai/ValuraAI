@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar } from "./components/Navbar";
+import HomeNavbar from "./landing/components/layout/HomeNavbar";
 import Hero from "./landing/components/sections/Hero";
 import Features from "./landing/components/sections/Features";
 import About from "./landing/components/sections/About";
@@ -17,7 +17,7 @@ export default function LandingPage() {
             alt="Background"
             className="absolute h-full w-full object-cover inset-0"
           />
-          <Navbar />
+          <HomeNavbar />
           <Hero />
         </div>
         <Features />
