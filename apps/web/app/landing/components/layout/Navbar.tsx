@@ -1,60 +1,87 @@
-"use client";
-
-import React from "react";
-import { format } from "date-fns";
+import React from 'react';
+import { format } from 'date-fns';
 
 const Navbar = () => {
   const [time, setTime] = React.useState(new Date());
 
   React.useEffect(() => {
-    const timer = setInterval(() => setTime(new Date()), 1000);
+    const timer = setInterval(() => {
+      const now = new Date();
+      setTime(now);
+    }, 1000);
     return () => clearInterval(timer);
   }, []);
 
+  // Function to calculate Dubai/UAE time (GMT+4)
+  const getDubaiTime = () => {
+    const now = new Date();
+    const utcTime = now.getTime() + now.getTimezoneOffset() * 60000;
+    return new Date(utcTime + (4 * 60 * 60000));
+  };
+
+  // Function to calculate India time (GMT+5:30)
+  const getIndiaTime = () => {
+    const now = new Date();
+    const utcTime = now.getTime() + now.getTimezoneOffset() * 60000;
+    return new Date(utcTime + (5 * 60 * 60000) + (30 * 60000));
+  };
+
+  // Get formatted times
+  const dubaiTime = getDubaiTime();
+  const indiaTime = getIndiaTime();
+
   return (
-    <nav className="relative bg-[rgba(0,0,0,0.2)] self-stretch flex w-full flex-col items-center justify-center px-[70px] py-4 border-[rgba(255,255,255,0.25)] border-b max-md:max-w-full max-md:px-5">
-      <div className="flex w-full max-w-[1537px] items-stretch gap-5 flex-wrap justify-between max-md:max-w-full">
-        <div className="flex items-center gap-[33px] text-base text-white font-normal flex-wrap my-auto max-md:max-w-full">
+    <nav className="relative bg-transparent self-stretch flex w-full flex-col items-center justify-center px-5 sm:px-8 md:px-12 lg:px-[70px] py-4">
+      <div className="flex w-full max-w-[1537px] items-center justify-between">
+        {/* Left section - Logo and Navigation */}
+        <div className="flex items-center gap-6 md:gap-8 text-base text-white font-normal">
           <img
             src="https://cdn.builder.io/api/v1/image/assets/ca7ec7c7d94147318bebe8b1c8ccdcac/fcab38a6c37920ff856346db733dd47b127041d4?placeholderIfAbsent=true"
-            alt="Fundora Logo"
-            className="aspect-[4.13] object-contain w-[120px] self-stretch shrink-0 max-w-full"
+            alt="Valura AI Logo"
+            className="aspect-[4.13] object-contain w-[120px] shrink-0"
           />
-          <div className="self-stretch flex items-stretch gap-1 whitespace-nowrap text-center my-auto">
-            <button className="grow">Products</button>
-            <img
-              src="https://cdn.builder.io/api/v1/image/assets/ca7ec7c7d94147318bebe8b1c8ccdcac/4f1cbcd5557447a9654866e14959d526ea68d007?placeholderIfAbsent=true"
-              alt="Dropdown"
-              className="aspect-[1] object-contain w-4 shrink-0 mt-1"
-            />
-          </div>
-          <div className="self-stretch flex items-stretch gap-[34px] my-auto">
-            <button>Plan and Pricing</button>
-            <button>Blog</button>
-            <button>Support</button>
+          
+          {/* Navigation Menu - Always visible */}
+          <div className="flex items-center gap-3 sm:gap-4 lg:gap-6">
+            <div className="flex items-center gap-1 cursor-pointer hover:text-cyan-400 transition-colors">
+              <span>Products</span>
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets/ca7ec7c7d94147318bebe8b1c8ccdcac/4f1cbcd5557447a9654866e14959d526ea68d007?placeholderIfAbsent=true"
+                alt="Dropdown"
+                className="aspect-[1] object-contain w-4 shrink-0"
+              />
+            </div>
+            <button className="hover:text-cyan-400 transition-colors">Plan and Pricing</button>
+            <button className="hover:text-cyan-400 transition-colors">Blog</button>
+            <button className="hover:text-cyan-400 transition-colors">Support</button>
           </div>
         </div>
-        <div className="flex items-center gap-6 flex-wrap">
-          <div className="bg-[rgba(255,255,255,0.05)] self-stretch flex min-w-60 gap-4 text-sm text-white font-normal leading-none w-[395px] my-auto px-[17px] py-[9px] rounded-full">
-            <div className="self-stretch flex items-stretch gap-2">
+
+        {/* Right section - Time Display and Sign Up */}
+        <div className="flex items-center gap-4">
+          {/* Time Display - Always visible on sm+ */}
+          <div className="flex items-center gap-2 sm:gap-4 bg-[rgba(255,255,255,0.05)] px-2 sm:px-4 py-2 rounded-full text-xs sm:text-sm text-white">
+            <div className="flex items-center gap-1 sm:gap-2">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets/ca7ec7c7d94147318bebe8b1c8ccdcac/06f813e24c48de57f86ce48e229e0ac28367be3a?placeholderIfAbsent=true"
                 alt="Clock"
                 className="aspect-[1] object-contain w-4 shrink-0"
               />
-              <div>{format(time, "HH:mm a")} GMT +3</div>
+              <span className="whitespace-nowrap">{format(dubaiTime, 'HH:mm')} PM (Dubai/UAE)</span>
             </div>
-            <div className="bg-[rgba(255,255,255,0.2)] flex w-px shrink-0 h-4" />
-            <div className="flex items-stretch gap-2">
+            <div className="bg-[rgba(255,255,255,0.2)] w-px h-4" />
+            <div className="flex items-center gap-1 sm:gap-2">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets/ca7ec7c7d94147318bebe8b1c8ccdcac/6fb81ccbb790eaf747c52e08504db141bd3177a1?placeholderIfAbsent=true"
                 alt="Clock"
                 className="aspect-[1] object-contain w-4 shrink-0"
               />
-              <div>{format(time, "HH:mm a")} (Asia/Calcutta)</div>
+              <span className="whitespace-nowrap">{format(indiaTime, 'HH:mm')} PM (Asia/Calcutta)</span>
             </div>
           </div>
-          <button className="bg-cyan-400 self-stretch text-base text-black font-semibold text-center w-[101px] my-auto px-[21px] py-[13px] rounded-full max-md:pl-5">
+          
+          {/* Sign Up Button */}
+          <button className="bg-cyan-400 hover:bg-cyan-500 transition-colors text-black font-semibold px-6 py-3 rounded-full text-sm">
             Sign Up
           </button>
         </div>
