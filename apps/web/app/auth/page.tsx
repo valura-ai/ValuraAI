@@ -4,8 +4,17 @@ import React, { useState } from "react";
 import { Navbar } from "../components/Navbar";
 import { SignInBox } from "../components/SignInBox";
 import { SignUpBox } from "../components/SignUpBox";
+import { redirect } from "next/navigation";
+import { auth } from "../lib/auth"
 
 export default function AuthPage() {
+  // const session = await auth()
+  // if(!session){
+  //   redirect("/")
+  // }
+
+  //uncomment the above once auth is ready
+  
   const [isSignUp, setIsSignUp] = useState(false);
 
   return (
