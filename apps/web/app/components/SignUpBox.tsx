@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 interface SignUpBoxProps {
   onSignInClick: () => void;
@@ -29,6 +30,17 @@ export const SignUpBox = ({ onSignInClick }: SignUpBoxProps) => {
           Log in to your account to access your personalized wealth management
           dashboard.
         </p>
+        <div className="mt-2 w-full pl-4">
+          <p className="text-white/80 text-sm mt-2 mb-4">
+            Already have an account?
+          </p>
+          <button
+            onClick={onSignInClick}
+            className="bg-black/30 text-sm hover:bg-black/40 text-white px-6 py-2 rounded-3xl transition-all duration-200 border border-white/20"
+          >
+            Sign In
+          </button>
+        </div>
       </div>
 
       {/* White Rectangle with Social Login Buttons */}
@@ -39,6 +51,7 @@ export const SignUpBox = ({ onSignInClick }: SignUpBoxProps) => {
         <div className="flex flex-col gap-4">
           <button
             type="button"
+            onClick={() => signIn("google")}
             className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white/70 hover:bg-white/100 px-4 py-2 text-sm font-medium text-black-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-200"
           >
             <img src="/google.svg" alt="Google" className="h-5 w-5" />
@@ -46,6 +59,7 @@ export const SignUpBox = ({ onSignInClick }: SignUpBoxProps) => {
           </button>
           <button
             type="button"
+            onClick={() => signIn("github")}
             className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white/70 hover:bg-white/100 px-4 py-2 text-sm font-medium text-black-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-200"
           >
             <img src="/github.svg" alt="GitHub" className="h-5 w-5" />
@@ -53,6 +67,7 @@ export const SignUpBox = ({ onSignInClick }: SignUpBoxProps) => {
           </button>
           <button
             type="button"
+            onClick={() => signIn("linkedin")}
             className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white/70 hover:bg-white/100 px-4 py-2 text-sm font-medium text-black-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-200"
           >
             <img src="/linkedin.svg" alt="LinkedIn" className="h-5 w-5" />
@@ -60,6 +75,7 @@ export const SignUpBox = ({ onSignInClick }: SignUpBoxProps) => {
           </button>
           <button
             type="button"
+            onClick={() => signIn("apple")}
             className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white/70 hover:bg-white/100 px-4 py-2 text-sm font-medium text-black-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-200"
           >
             <img src="/apple.svg" alt="Apple" className="h-5 w-5" />
