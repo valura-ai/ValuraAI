@@ -9,7 +9,6 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
-    "@workos-inc/authkit-nextjs": "^2.3.3",
     "next": "^14.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -18,7 +17,7 @@
     "@next/eslint-plugin-next": "^14.1.1",
     "@repo/database": "workspace:*",
     "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
+    "@repo/config-typescript": "workspace:*",
     "@tailwindcss/postcss": "^4.1.7",
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.61",

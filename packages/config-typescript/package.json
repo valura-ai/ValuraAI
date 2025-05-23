@@ -1,7 +1,16 @@
 {
-  "name": "@repo/typescript-config",
+  "name": "@repo/config-typescript",
   "version": "0.0.0",
   "private": true,
+  "main": "nextjs.json",
+  "files": [
+    "base.json",
+    "nextjs.json"
+  ],
+  "scripts": {
+    "build": "echo 'No build required'",
+    "prepare": "echo 'No prepare required'"
+  },
   "publishConfig": {
     "access": "public"
   }
