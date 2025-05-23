@@ -2,8 +2,16 @@ import React from 'react';
 
 const About = () => {
   return (
-    <section className="bg-[#001423] flex flex-col overflow-hidden items-center justify-center px-20 py-[136px] max-md:max-w-full max-md:px-5 max-md:py-[100px]">
-      <div className="flex mb-[-30px] w-[1265px] max-w-full flex-col max-md:mb-2.5">
+    <section
+      className="flex flex-col overflow-hidden items-center justify-center px-20 py-[136px] max-md:max-w-full max-md:px-5 max-md:py-[100px] relative"
+      style={{
+        backgroundImage: "url('/assets/logo.png')",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundSize: "cover", // changed from 'contain' to 'cover' for full section coverage
+      }}
+    >
+      <div className="flex mb-[-30px] w-[1265px] max-w-full flex-col max-md:mb-2.5 relative z-10">
         <h2 className="text-cyan-400 text-lg font-medium leading-none tracking-[-0.25px]">
           About US
         </h2>
