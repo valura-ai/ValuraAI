@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { Navbar } from "../components/Navbar";
-import { SignInBox } from "../components/SignInBox";
 import { SignUpBox } from "../components/SignUpBox";
 
 export default function AuthPage() {
@@ -22,11 +21,7 @@ export default function AuthPage() {
 
       {/* CONTENT */}
       <div className="absolute top-0 left-0 w-full h-screen flex items-center justify-center z-[2]">
-        {isSignUp ? (
-          <SignUpBox onSignInClick={() => setIsSignUp(false)} />
-        ) : (
-          <SignInBox onSignUpClick={() => setIsSignUp(true)} />
-        )}
+        <SignUpBox onSignInClick={() => {}} />
       </div>
     </div>
   );
