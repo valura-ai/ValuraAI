@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { handleSignOutAction } from "@web/api/handler/signout";
 import { Navbar } from "@web/components/Navbar";
 import Footer from "@web/landing/components/layout/Footer";
-import { User } from "lucide-react";
 
 
 export default function AccountPage() {
@@ -34,7 +33,9 @@ export default function AccountPage() {
         ["First name", user.firstName],
         ["Last name", user.lastName],
         ["Email", user.email],
-        ["KYC status", user.kycStatus],
+        ["Phone number", user?.mobileNumber || "Not set"],
+        ["Phone verification", user?.mobileVerification],
+        ["KYC status", user?.kycStatus],
       ].filter((arr) => arr[1])
     : [];
 
@@ -60,12 +61,19 @@ export default function AccountPage() {
               {userFields.map(([label, value]) => (
                 <div className="flex items-center gap-4" key={String(label)}>
                   <span className="font-semibold w-32 text-gray-800">{label}</span>
-                  {label === "KYC status" ? (
+                  {label === "KYC status" || label === "Phone verification" ? (
                     <span
                       className={`flex-1 border rounded px-3 py-2 font-semibold ${getKycStatusColor(String(value))}`}
                     >
                       {String(value)}
                     </span>
+                  ) : label === "Phone number" && (!value || value === "Not set") ? (
+                    <button
+                      className="flex-1 border border-blue-500 text-blue-600 rounded px-3 py-2 bg-blue-50 hover:bg-blue-100 font-semibold transition"
+                      onClick={() => window.location.href = "/auth/verify"}
+                    >
+                      Add mobile number
+                    </button>
                   ) : (
                     <input
                       className="flex-1 border border-gray-300 rounded px-3 py-2 bg-gray-100 text-gray-700"

@@ -5,7 +5,6 @@ import { prisma } from '@repo/database';
 export const GET = handleAuth({
   onSuccess: async ({ user }) => {
     const { id: workosId, email, firstName, lastName } = user;
-    // console.log('Logging user from auth callback:', user);
     try {
       await prisma.user.upsert({
         where: { workosId },
