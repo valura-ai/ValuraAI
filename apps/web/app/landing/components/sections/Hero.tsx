@@ -24,19 +24,24 @@ const Hero = () => {
             className="bg-[rgba(0,0,0,0.25)] backdrop-blur-sm border flex gap-2 pt-2 pb-2 px-4 rounded-full border-[rgba(34,197,94,0.3)] border-solid"
           >
             <span className="text-green-400 font-semibold text-base">{item.icon}</span>
-            <span className="font-medium text-white text-sm">{item.label}</span>
+            <span className="font-medium text-sm bg-gradient-to-r from-[#86EFAC] to-[#FEF08A] bg-clip-text text-transparent">
+              {item.label}
+            </span>
           </div>
         ))}
       </div>
 
       {/* Headings */}
       <h1 className="relative z-10 text-white text-5xl lg:text-6xl font-light leading-tight text-center max-w-4xl max-md:text-4xl font-[Junicode] lowercase">
-        the most reliable way to
+        the most 
       </h1>
 
-      <h2 className="relative z-10 text-white text-5xl lg:text-6xl font-light leading-tight text-center mt-2 max-md:text-4xl font-[Junicode] italic lowercase">
-        smart finance
+      <h2 className="relative z-10 text-white text-5xl lg:text-6xl font-light leading-tight text-center mt-2 max-md:text-4xl font-[Junicode] lowercase">
+        reliable way to
       </h2>
+      <h3 className="relative z-10 text-white text-5xl lg:text-6xl font-light leading-tight text-center mt-2 max-md:text-4xl font-[Junicode] italic lowercase">
+        smart finance
+      </h3>
 
       {/* Action Buttons */}
       <div className="relative z-10 flex items-center gap-4 mt-10 max-md:flex-col max-md:w-full max-md:px-4">
