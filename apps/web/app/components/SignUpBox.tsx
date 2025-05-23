@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 interface SignUpBoxProps {
   onSignInClick: () => void;
@@ -53,12 +54,15 @@ export const SignUpBox = ({ onSignInClick }: SignUpBoxProps) => {
             type="button"
             onClick={() => signIn("google")}
             className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white/70 hover:bg-white/100 px-4 py-2 text-sm font-medium text-black-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            onClick={() => signIn("google")}
           >
             <img src="/google.svg" alt="Google" className="h-5 w-5" />
             <span>Continue with Google</span>
           </button>
           <button
             type="button"
+            className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white/70 hover:bg-white/100 px-4 py-2 text-sm font-medium text-black-700 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            onClick={() => signIn("github")}
             onClick={() => signIn("github")}
             className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white/70 hover:bg-white/100 px-4 py-2 text-sm font-medium text-black-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-200"
           >
