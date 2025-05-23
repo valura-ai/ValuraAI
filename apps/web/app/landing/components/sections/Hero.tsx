@@ -2,18 +2,18 @@ import React from 'react';
 
 const Hero = () => {
   return (
-    <section className="flex flex-col relative z-10 min-h-screen w-full items-center pt-20 pb-12 px-4 max-md:pt-16 max-md:pb-8 overflow-hidden">
+    <section className="flex flex-col relative z-10 min-h-screen w-full items-center justify-center pt-20 pb-12 px-4 max-md:pt-16 max-md:pb-8 overflow-hidden">
       {/* Background Image */}
-      <div
+      {/* <div
         className="absolute inset-0 z-0 bg-no-repeat bg-bottom bg-cover"
         style={{
           backgroundImage:
             "url('https://cdn.builder.io/api/v1/image/assets/ca7ec7c7d94147318bebe8b1c8ccdcac/527904a5d335bf09f81053ec71f0ae92bb05e4ba?placeholderIfAbsent=true')",
         }}
-      ></div>
+      ></div> */}
 
       {/* Navigation Tabs */}
-      <div className="relative z-10 flex w-[380px] max-w-full items-stretch gap-3 text-sm whitespace-nowrap text-center leading-none justify-between mb-8 max-md:w-[320px] max-md:gap-2">
+      <div className="relative mt-4 z-10 flex w-[380px] max-w-full items-stretch gap-3 text-sm whitespace-nowrap text-center leading-none justify-between mb-8 max-md:w-[320px] max-md:gap-2">
         {[
           { label: 'Reliable', icon: '↗' },
           { label: 'Adaptable', icon: '↔' },

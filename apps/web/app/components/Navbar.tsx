@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import { format } from "date-fns";
+import { toZonedTime, format as formatTz } from "date-fns-tz";
 
 export const Navbar = () => {
   const [time, setTime] = useState(new Date());
@@ -11,6 +10,9 @@ export const Navbar = () => {
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
+
+  const dubaiTime = toZonedTime(time, "Asia/Dubai");
+  const calcuttaTime = toZonedTime(time, "Asia/Kolkata");
 
   return (
     <div className="absolute top-0 left-0 w-full h-[9vh] pl-[5%] pr-[5%] bg-black/30 backdrop-blur-md z-[999] p-5 flex items-center justify-between border-b border-white/20">
@@ -30,7 +32,7 @@ export const Navbar = () => {
                 "invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%)",
             }}
           />
-          <div>{format(time, "hh:mm a")} GMT +3</div>
+          <div>{formatTz(dubaiTime, "hh:mm a")} GMT +4 (Dubai/UAE)</div>
         </div>
         <div className="bg-[rgba(255,255,255,0.2)] flex w-px shrink-0 h-4" />
         <div className="flex items-stretch gap-2">
@@ -43,7 +45,7 @@ export const Navbar = () => {
                 "invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%)",
             }}
           />
-          <div>{format(time, "hh:mm a")} (Asia/Calcutta)</div>
+          <div>{formatTz(calcuttaTime, "hh:mm a")} (Asia/Calcutta)</div>
         </div>
       </div>
     </div>

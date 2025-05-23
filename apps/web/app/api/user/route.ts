@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
     if (!dbUser) {
       return errorResponse('User not found', 404);
     }
-    await redis.set(cacheKey, JSON.stringify(dbUser), { EX: 600 });
+    await redis.set(cacheKey, JSON.stringify(dbUser), { EX: 300 });
     return successResponse(dbUser);
   } catch (err) {
     return errorResponse('Failed to fetch user data');
