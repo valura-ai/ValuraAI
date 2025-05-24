@@ -17,7 +17,8 @@ model User {
   email              String?   @unique
   firstName          String?
   lastName           String?
-  mobileNumber       String? // not required
+  name               String?   // Added this line to match application code
+  mobileNumber       String?   // not required
   kycStatus          KycStatus @default(PENDING)
   mobileVerification VerificationStatus @default(PENDING)
   createdAt          DateTime? @default(now())
