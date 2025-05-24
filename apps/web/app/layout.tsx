@@ -1,8 +1,13 @@
 import "./globals.css";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import ConfAmplifyClient from "./amplify-cognito-config";
 
-export const metadata = {
-  title: "ValuraAI",
-  description: "ValuraAI Platform",
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "Valura",
+  description: "Your personalized wealth management dashboard",
 };
 
 export default function RootLayout({
@@ -12,7 +17,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className={inter.className}>
+        <ConfAmplifyClient />
+        {children}
+      </body>
     </html>
   );
 }
