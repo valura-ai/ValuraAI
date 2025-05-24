@@ -7,22 +7,21 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
 }
 
 model User {
-  id                 String             @id @default(cuid())
-  workosId           String?            @unique
-  email              String?            @unique
-  name               String?            // Added to match app expectation
+  id                 String    @id @default(cuid())
+  workosId           String?   @unique
+  email              String?   @unique
   firstName          String?
   lastName           String?
-  mobileNumber       String?            // Not required
-  kycStatus          KycStatus          @default(PENDING)
+  mobileNumber       String? // not required
+  kycStatus          KycStatus @default(PENDING)
   mobileVerification VerificationStatus @default(PENDING)
-  createdAt          DateTime?          @default(now())
-  updatedAt          DateTime?          @updatedAt
+  createdAt          DateTime? @default(now())
+  updatedAt          DateTime? @updatedAt
 }
 
 enum KycStatus {
@@ -34,3 +33,6 @@ enum VerificationStatus {
   PENDING
   DONE
 }
+
+
+this is the file 
