@@ -1,6 +1,132 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 
 const About = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  // Ensure we're on the client before rendering the chart
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Data points extracted from the original SVG path
+  const chartData = [
+    { x: 0, value: 20 }, // Inverted: 180 -> 20
+    { x: 1, value: 40 }, // Inverted: 160 -> 40
+    { x: 2, value: 30 }, // Inverted: 170 -> 30
+    { x: 3, value: 60 }, // Inverted: 140 -> 60
+    { x: 4, value: 50 }, // Inverted: 150 -> 50
+    { x: 5, value: 80 }, // Inverted: 120 -> 80
+    { x: 6, value: 100 }, // Inverted: 100 -> 100
+    { x: 7, value: 130 }, // Inverted: 80 -> 120 (highlighted point)
+    { x: 8, value: 180 }, // Inverted: 60 -> 140
+    { x: 9, value: 230 }, // Inverted: 40 -> 160
+    { x: 10, value: 300 }, // Inverted: 20 -> 180
+  ];
+
+  // Chart component to render only on client
+  const ChartComponent = () => {
+    if (!isClient) {
+      return (
+        <div className="w-full h-full flex items-center justify-center">
+          <div className="text-cyan-400 text-sm">Loading chart...</div>
+        </div>
+      );
+    }
+
+    // Use require to import recharts on client-side only
+    const {
+      LineChart,
+      Line,
+      XAxis,
+      YAxis,
+      ResponsiveContainer,
+      ReferenceLine,
+      Tooltip,
+      CartesianGrid,
+    } = require("recharts");
+
+    // Custom tooltip component
+    const CustomTooltip = ({ active, payload, label }: any) => {
+      if (active && payload && payload.length) {
+        return (
+          <div className="bg-black/80 text-white p-2 rounded shadow-lg border border-cyan-400/20">
+            <p className="text-cyan-400 text-sm">{`Month: ${label}`}</p>
+            <p className="text-white text-sm">{`Value: ${payload[0].value}`}</p>
+          </div>
+        );
+      }
+      return null;
+    };
+
+    return (
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart
+          data={chartData}
+          margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+        >
+          {/* Grid lines for better readability */}
+          <CartesianGrid
+            strokeDasharray="3 3"
+            stroke="#4AE3C2"
+            strokeOpacity={0.1}
+          />
+
+          <XAxis
+            dataKey="x"
+            axisLine={{ stroke: "#4AE3C2", strokeOpacity: 0.3 }}
+            tickLine={{ stroke: "#4AE3C2", strokeOpacity: 0.3 }}
+            tick={{ fill: "#4AE3C2", fontSize: 12 }}
+            label={{
+              value: "Time Period",
+              position: "insideBottom",
+              offset: -10,
+              style: { textAnchor: "middle", fill: "#4AE3C2", fontSize: 12 },
+            }}
+          />
+          <YAxis
+            axisLine={{ stroke: "#4AE3C2", strokeOpacity: 0.3 }}
+            tickLine={{ stroke: "#4AE3C2", strokeOpacity: 0.3 }}
+            tick={{ fill: "#4AE3C2", fontSize: 12 }}
+            label={{
+              value: "Portfolio Value",
+              angle: -90,
+              position: "insideLeft",
+              style: { textAnchor: "middle", fill: "#4AE3C2", fontSize: 12 },
+            }}
+          />
+
+          {/* Tooltip for hover interactions */}
+          <Tooltip
+            content={<CustomTooltip />}
+            cursor={{
+              stroke: "#4AE3C2",
+              strokeWidth: 2,
+              strokeDasharray: "4 4",
+              strokeOpacity: 0.8,
+            }}
+          />
+
+          <Line
+            type="monotone"
+            dataKey="value"
+            stroke="#4AE3C2"
+            strokeWidth={3}
+            dot={{ fill: "#4AE3C2", strokeWidth: 2, r: 4 }}
+            activeDot={{
+              r: 8,
+              fill: "#4AE3C2",
+              stroke: "#fff",
+              strokeWidth: 3,
+              filter: "drop-shadow(0px 0px 8px rgba(74, 227, 194, 0.6))",
+            }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    );
+  };
+
   return (
     <section
       className="flex flex-col overflow-hidden items-center justify-center px-[10%] py-[136px] max-md:max-w-full max-md:px-5 max-md:py-[100px] relative"
@@ -24,7 +150,7 @@ const About = () => {
           world.
         </p>
         <a
-          href="/auth"
+          href="api/auth/login"
           className="bg-cyan-400 flex items-center justify-center w-full max-w-[770px] text-black font-medium mt-10 py-3 rounded-full no-underline"
         >
           <span>Create account</span>
@@ -52,7 +178,7 @@ const About = () => {
             <h4 className="text-base font-medium mt-4">
               Fast, reliable transfers
             </h4>
-            <p className="text-sm font-normal leading-5 text-white/80 mt-2">
+            <p className="text-md font-normal leading-5 text-white/80 mt-2">
               Get same-day transfers on most major currencies.
             </p>
           </div>
@@ -73,7 +199,7 @@ const About = () => {
               </svg>
             </div>
             <h4 className="text-base font-medium mt-4">Global coverage</h4>
-            <p className="text-sm font-normal leading-5 text-white/80 mt-2">
+            <p className="text-md font-normal leading-5 text-white/80 mt-2">
               Collect and pay like a local, hold up to 35 currencies.
             </p>
           </div>
@@ -94,7 +220,7 @@ const About = () => {
               </svg>
             </div>
             <h4 className="text-base font-medium mt-4">Bank-beating rates</h4>
-            <p className="text-sm font-normal leading-5 text-white/80 mt-2">
+            <p className="text-md font-normal leading-5 text-white/80 mt-2">
               Paymint exchange rate are cheaper than bank.
             </p>
           </div>
@@ -115,7 +241,7 @@ const About = () => {
               </svg>
             </div>
             <h4 className="text-base font-medium mt-4">Secure & Trusted</h4>
-            <p className="text-sm font-normal leading-5 text-white/80 mt-2">
+            <p className="text-md font-normal leading-5 text-white/80 mt-2">
               Our security is based on the highest international standards.
             </p>
           </div>
@@ -127,34 +253,15 @@ const About = () => {
             <h4 className="text-white text-base font-medium">
               Precision-Driven Portfolio Growth
             </h4>
-            <p className="text-white/70 text-xs mt-1">
+            <p className="text-white/70 text-md mt-1">
               Every move guided by data and insights for smarter portfolio
               growth.
             </p>
             <div className="mt-4 relative">
-              {/* SVG Chart */}
-              <svg viewBox="0 0 500 200" className="w-full">
-                <path
-                  d="M0,180 L50,160 L100,170 L150,140 L200,150 L250,120 L300,100 L350,80 L400,60 L450,40 L500,20"
-                  fill="none"
-                  stroke="#4AE3C2"
-                  strokeWidth="3"
-                />
-                {/* Highlight dot */}
-                <circle cx="350" cy="80" r="8" fill="#4AE3C2" opacity="0.5" />
-                <circle cx="350" cy="80" r="4" fill="#fff" />
-                {/* Vertical line from dot */}
-                <line
-                  x1="350"
-                  y1="80"
-                  x2="350"
-                  y2="180"
-                  stroke="#4AE3C2"
-                  strokeWidth="1"
-                  opacity="0.5"
-                  strokeDasharray="4"
-                />
-              </svg>
+              {/* Recharts LineChart - Only render on client */}
+              <div className="w-full h-[200px]">
+                <ChartComponent />
+              </div>
             </div>
           </div>
 
@@ -164,15 +271,16 @@ const About = () => {
               <h4 className="text-white text-base font-medium">
                 Diversified Assets
               </h4>
-              <p className="text-white/70 text-xs mt-1">
+              <p className="text-white/70 text-md mt-1">
                 Tailor your portfolio to achieve optimal performance.
               </p>
             </div>
+
             <div className="bg-[rgba(0,0,0,0.3)] border border-[rgba(255,255,255,0.1)] rounded-xl overflow-hidden p-6">
               <h4 className="text-white text-base font-medium">
                 Your Portfolio, Optimized in Real-Time
               </h4>
-              <p className="text-white/70 text-xs mt-1">
+              <p className="text-white/70 text-md mt-2">
                 Adjusted instantly with market changes to enhance investment
                 efficiency.
               </p>

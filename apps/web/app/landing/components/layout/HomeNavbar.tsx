@@ -91,7 +91,7 @@ const Navbar = () => {
         </div>
         <Link
           href="/auth"
-          className="px-6 py-2 bg-cyan-500 hover:bg-cyan-600 text-black rounded-full transition-colors duration-200 font-medium"
+          className="px-6 py-2 bg-cyan-500 hover:bg-cyan-600 text-black rounded-full font-medium"
         >
           Sign In/Up
         </Link>
