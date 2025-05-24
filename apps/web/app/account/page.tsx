@@ -4,7 +4,6 @@ import { handleSignOutAction } from "@web/api/handler/signout";
 import { Navbar } from "@web/components/Navbar";
 import Footer from "@web/landing/components/layout/Footer";
 
-
 export default function AccountPage() {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -85,6 +84,21 @@ export default function AccountPage() {
               ))}
             </div>
           )}
+
+          {user?.kycStatus !== "DONE" && (
+            <>
+              <br />
+              <a
+                href="/account/kyc"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                KYC verification
+              </a>
+            </>
+          )}
+
           <form
             action={handleSignOutAction}
             className="w-full mt-8 flex justify-center"
