@@ -1,6 +1,4 @@
 import "./globals.css";
-import { AuthKitProvider,Impersonation } from "@workos-inc/authkit-nextjs/components";
-
 
 export const metadata = {
   title: "ValuraAI",
@@ -14,11 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="antialiased">
-        <AuthKitProvider>
-          {children}
-        </AuthKitProvider>
-      </body>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

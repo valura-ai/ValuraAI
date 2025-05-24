@@ -1,4 +1,6 @@
-import { authkitMiddleware } from "@workos-inc/authkit-nextjs";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-export default authkitMiddleware();
-
+export function middleware(request: NextRequest) {
+  return NextResponse.next();
+}
