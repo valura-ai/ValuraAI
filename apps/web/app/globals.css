@@ -5,8 +5,56 @@
   src: url("/fonts/TWK Lausanne 350-normal-400-100.ttf") format("truetype");
   font-weight: 350;
   font-style: normal;
+  font-display: swap;
 }
 
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+/* Accordion animations - be more specific to avoid conflicts */
+@keyframes accordion-slide-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-slide-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+/* Target only accordion content specifically */
+[data-slot="accordion-content"][data-state="open"] {
+  animation: accordion-slide-down 250ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+[data-slot="accordion-content"][data-state="closed"] {
+  animation: accordion-slide-up 250ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+/* Ensure proper initial state */
+[data-slot="accordion-content"] {
+  overflow: hidden;
+}
+
+/* * {
+  font-family: "TWK Lausanne", sans-serif !important;
+} */
+
 body {
-  font-family: "TWK Lausanne", sans-serif;
+  font-family: "TWK Lausanne", sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

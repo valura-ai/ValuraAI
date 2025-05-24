@@ -62,7 +62,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-6">
-        <div className="bg-[rgba(255,255,255,0.05)] self-stretch flex min-w-60 gap-4 text-sm text-white font-normal leading-none my-auto px-[17px] py-[9px] rounded-full">
+        <div className="bg-[rgba(255,255,255,0.05)] self-stretch flex min-w-60 gap-4 text-sm text-white font-normal leading-none my-auto px-[17px] py-[9px] rounded-full border-1 border-white/20">
           <div className="self-stretch flex items-stretch gap-2">
             <img
               src="/clock-five.svg"
@@ -73,7 +73,7 @@ const Navbar = () => {
                   "invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%)",
               }}
             />
-            <div>{formatTz(dubaiTime, "hh:mm a")} GMT +4 (Dubai/UAE)</div>
+            <div>{formatTz(dubaiTime, "hh:mm a")} (Dubai/UAE)</div>
           </div>
           <div className="bg-[rgba(255,255,255,0.2)] flex w-px shrink-0 h-4" />
           <div className="flex items-stretch gap-2">
@@ -90,8 +90,8 @@ const Navbar = () => {
           </div>
         </div>
         <Link
-          href="/api/auth/login"
-          className="px-6 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-full transition-colors duration-200 font-medium"
+          href="/auth"
+          className="px-6 py-2 bg-cyan-500 hover:bg-cyan-600 text-black rounded-full transition-colors duration-200 font-medium"
         >
           Sign In/Up
         </Link>
