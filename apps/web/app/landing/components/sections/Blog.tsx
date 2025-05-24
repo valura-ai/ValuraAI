@@ -1,6 +1,12 @@
 import React from 'react';
 
-const BlogCard = ({ image, title, date }) => (
+type BlogCardProps = {
+  image: string;
+  title: string;
+  date: string;
+};
+
+const BlogCard: React.FC<BlogCardProps> = ({ image, title, date }) => (
   <div className="flex flex-col w-full">
     <img
       src={image}
