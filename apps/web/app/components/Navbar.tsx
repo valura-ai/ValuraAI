@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { format } from "date-fns";
+import { toZonedTime } from "date-fns-tz";
 
 export const Navbar = () => {
   const [time, setTime] = useState(new Date());
@@ -12,6 +13,9 @@ export const Navbar = () => {
     return () => clearInterval(timer);
   }, []);
 
+  const dubaiTime = toZonedTime(time, "Asia/Dubai");
+  const calcuttaTime = toZonedTime(time, "Asia/Kolkata");
+
   return (
     <div className="absolute top-0 left-0 w-full h-[9vh] pl-[5%] pr-[5%] bg-black/30 backdrop-blur-md z-[999] p-5 flex items-center justify-between border-b border-white/20">
       <img
@@ -19,7 +23,7 @@ export const Navbar = () => {
         alt="Logo"
         className="h-[120%] w-auto object-contain"
       />
-      <div className="bg-[rgba(255,255,255,0.05)] self-stretch flex min-w-60 gap-4 text-sm text-white font-normal leading-none my-auto px-[17px] py-[9px] rounded-full">
+      <div className="bg-[rgba(255,255,255,0.05)] self-stretch flex min-w-60 gap-4 text-sm text-white font-normal leading-none my-auto px-[17px] py-[9px] rounded-full border-1 border-white/20">
         <div className="self-stretch flex items-stretch gap-2">
           <img
             src="/clock-five.svg"
@@ -30,7 +34,7 @@ export const Navbar = () => {
                 "invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%)",
             }}
           />
-          <div>{format(time, "hh:mm a")} GMT +3</div>
+          <div>{format(dubaiTime, "hh:mm a")} (Dubai/UAE)</div>
         </div>
         <div className="bg-[rgba(255,255,255,0.2)] flex w-px shrink-0 h-4" />
         <div className="flex items-stretch gap-2">
@@ -43,7 +47,7 @@ export const Navbar = () => {
                 "invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%)",
             }}
           />
-          <div>{format(time, "hh:mm a")} (Asia/Calcutta)</div>
+          <div>{format(calcuttaTime, "hh:mm a")} (Asia/Calcutta)</div>
         </div>
       </div>
     </div>
