@@ -150,7 +150,7 @@ const About = () => {
           world.
         </p>
         <a
-          href="api/auth/login"
+          href="auth"
           className="bg-cyan-400 flex items-center justify-center w-full max-w-[770px] text-black font-medium mt-10 py-3 rounded-full no-underline"
         >
           <span>Create account</span>
