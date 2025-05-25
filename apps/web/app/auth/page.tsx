@@ -1,12 +1,20 @@
 "use client"; // Important: Convert to client component
 
-import React, { useState, useEffect } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import { Navbar } from "../components/Navbar";
 import { SignInBox } from "../components/SignInBox";
 import { SignUpBox } from "../components/SignUpBox";
 import { useSearchParams } from "next/navigation";
 
 export default function AuthPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AuthContent />
+    </Suspense>
+  );
+}
+
+function AuthContent() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const searchParams = useSearchParams();

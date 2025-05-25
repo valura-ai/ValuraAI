@@ -1,10 +1,19 @@
 "use client";
 
+import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { EmailVerification } from "../../components/EmailVerification";
 import { Navbar } from "../../components/Navbar";
 
 export default function ConfirmSignUpPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ConfirmSignUpContent />
+    </Suspense>
+  );
+}
+
+function ConfirmSignUpContent() {
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
 
