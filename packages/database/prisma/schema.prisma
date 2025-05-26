@@ -12,25 +12,37 @@ datasource db {
 }
 
 model User {
-  id                 String             @id @default(cuid())
-  workosId           String?            @unique
-  email              String?            @unique
-  name               String?            // Added to match app expectation
-  firstName          String?
-  lastName           String?
-  mobileNumber       String?            // Not required
-  kycStatus          KycStatus          @default(PENDING)
-  mobileVerification VerificationStatus @default(PENDING)
-  createdAt          DateTime?          @default(now())
-  updatedAt          DateTime?          @updatedAt
+  cognitoId      String   @id @map("cognito_id")
+  firstName      String   @map("first_name")
+  lastName       String   @map("last_name")
+  mobileNumber   String   @map("mobile_number")
+  isUae          Boolean  @map("is_uae")
+  inquiryId      String?  @unique @map("inquiry_id")
+  kycStatus      String   @map("kyc_status")
+  category       String   @default("Unknown") @map("category")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+  watchlists     Watchlist[]
 }
 
-enum KycStatus {
-  PENDING
-  DONE
+model FinancialInstrument {
+  symbol   String   @id
+  name     String
+  type     String
+  currency String
+  watchlists Watchlist[]
 }
 
-enum VerificationStatus {
-  PENDING
-  DONE
+model Watchlist {
+  watchlistId String   @id @map("watchlist_id")
+  userId      String   @map("user_id")
+  symbol      String   @map("symbol")
+  addedAt     DateTime @map("added_at")
+
+  user        User      @relation(fields: [userId], references: [cognitoId])
+  instrument  FinancialInstrument @relation(fields: [symbol], references: [symbol])
+
+  @@unique([userId, symbol]) // Prevent duplicate entries for the same user and instrument
 }
+
+// Enums and other configurations remain unchanged

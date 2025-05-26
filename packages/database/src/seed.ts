@@ -1,46 +1,96 @@
-import { prisma } from "./client";
+import { PrismaClient } from "../generated/client";
+
+const prisma = new PrismaClient();
 
 const DEFAULT_USERS = [
   {
-    workosId: "workos_1",
-    email: "alice@example.com",
+    cognitoId: "user_1",
     firstName: "Alice",
     lastName: "Smith",
     mobileNumber: "1234567890",
-    kycStatus: "PENDING" as const,
-    mobileVerification: "PENDING" as const,
+    isUae: true,
+    inquiryId: "inquiry_1",
+    kycStatus: "PENDING",
+    category: "Investor",
   },
   {
-    workosId: "workos_2",
-    email: "bob@example.com",
+    cognitoId: "user_2",
     firstName: "Bob",
     lastName: "Johnson",
-    mobileNumber: "9876543210",
-    kycStatus: "DONE" as const,
-    mobileVerification: "DONE" as const,
+    mobileNumber: "0987654321",
+    isUae: false,
+    inquiryId: "inquiry_2",
+    kycStatus: "DONE",
+    category: "Trader",
+  },
+];
+
+const DEFAULT_FINANCIAL_INSTRUMENTS = [
+  {
+    symbol: "AAPL",
+    name: "Apple Inc.",
+    type: "Stock",
+    currency: "USD",
+  },
+  {
+    symbol: "GOOGL",
+    name: "Alphabet Inc.",
+    type: "Stock",
+    currency: "USD",
+  },
+];
+
+const DEFAULT_WATCHLISTS = [
+  {
+    watchlistId: "watchlist_1",
+    userId: "user_1",
+    symbol: "AAPL",
+    addedAt: new Date(),
+  },
+  {
+    watchlistId: "watchlist_2",
+    userId: "user_2",
+    symbol: "GOOGL",
+    addedAt: new Date(),
   },
 ];
 
 (async () => {
   try {
+    // Seed Users
     await Promise.all(
       DEFAULT_USERS.map((user) =>
         prisma.user.upsert({
-          where: { email: user.email },
-          update: {
-            ...user,
-            kycStatus: user.kycStatus,
-            mobileVerification: user.mobileVerification,
-          },
-          create: {
-            ...user,
-            kycStatus: user.kycStatus,
-            mobileVerification: user.mobileVerification,
-          },
+          where: { cognitoId: user.cognitoId },
+          update: user,
+          create: user,
         })
       )
     );
-    console.log("Seeded users successfully");
+
+    // Seed Financial Instruments
+    await Promise.all(
+      DEFAULT_FINANCIAL_INSTRUMENTS.map((instrument) =>
+        prisma.financialInstrument.upsert({
+          where: { symbol: instrument.symbol },
+          update: instrument,
+          create: instrument,
+        })
+      )
+    );
+
+    // Seed Watchlists
+    await Promise.all(
+      DEFAULT_WATCHLISTS.map((watchlist) =>
+        prisma.watchlist.upsert({
+          where: { watchlistId: watchlist.watchlistId },
+          update: watchlist,
+          create: watchlist,
+        })
+      )
+    );
+
+    console.log("Seeded data successfully");
   } catch (error) {
     console.error(error);
     process.exit(1);
