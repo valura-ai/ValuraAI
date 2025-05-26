@@ -14,7 +14,7 @@ export const SignUpBox = ({ onSignInClick }: SignUpBoxProps) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  // const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [isUAECitizen, setIsUAECitizen] = useState<"yes" | "no" | null>(null);
   const [loading, setLoading] = useState(false);
@@ -23,7 +23,7 @@ export const SignUpBox = ({ onSignInClick }: SignUpBoxProps) => {
   const router = useRouter();
 
   async function onSubmit() {
-    if (!firstName || !lastName || !email || !phone || !isUAECitizen) {
+    if (!firstName || !lastName || !email || !isUAECitizen) {
       alert("Please fill out all fields.");
       return;
     }
@@ -111,7 +111,7 @@ export const SignUpBox = ({ onSignInClick }: SignUpBoxProps) => {
             disabled={loading}
           />
         </div>
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <input
             type="text"
             className="w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-500"
@@ -120,7 +120,7 @@ export const SignUpBox = ({ onSignInClick }: SignUpBoxProps) => {
             onChange={(e) => setPhone(e.target.value)}
             disabled={loading}
           />
-        </div>
+        </div> */}
         <div className="mb-4">
           <input
             type="password"
