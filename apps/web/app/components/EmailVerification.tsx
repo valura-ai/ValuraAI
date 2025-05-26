@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { handleSendEmailVerificationCode, handleConfirmSignUp } from "../lib/cognito-actions";
 
 interface EmailVerificationProps {
@@ -9,17 +9,32 @@ interface EmailVerificationProps {
 
 export const EmailVerification = ({ email }: EmailVerificationProps) => {
   const [verificationCode, setVerificationCode] = useState("");
-  const [isCodeSent, setIsCodeSent] = useState(false);
+  const [isCodeSent, setIsCodeSent] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [resendCooldown, setResendCooldown] = useState(30);
   const router = useRouter();
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (resendCooldown > 0) {
+      timer = setInterval(() => {
+        setResendCooldown((prev) => prev - 1);
+      }, 1000);
+    }
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [resendCooldown]);
 
   const onSignInClick = () => {
     router.push("/auth")
   }
 
   const handleSendCode = async () => {
+    if (resendCooldown > 0) return;
+    
     setLoading(true);
     setError(null);
     setSuccessMessage(null);
@@ -34,6 +49,7 @@ export const EmailVerification = ({ email }: EmailVerificationProps) => {
       } else {
         setIsCodeSent(true);
         setSuccessMessage(result.message);
+        setResendCooldown(30);
       }
     } catch (error) {
       setError("Failed to send verification code. Please try again.");
@@ -160,10 +176,12 @@ export const EmailVerification = ({ email }: EmailVerificationProps) => {
         {isCodeSent && (
           <button
             onClick={handleSendCode}
-            disabled={loading}
-            className="mt-4 w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm hover:bg-white/20 transition-all duration-200"
+            disabled={loading || resendCooldown > 0}
+            className={`mt-4 w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm transition-all duration-200 ${
+              resendCooldown > 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white/20'
+            }`}
           >
-            Resend Code
+            {resendCooldown > 0 ? `Resend Code (${resendCooldown}s)` : 'Resend Code'}
           </button>
         )}
       </div>

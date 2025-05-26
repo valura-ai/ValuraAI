@@ -105,7 +105,6 @@ export async function handleSignIn(
     }
 
     if (nextStep.signInStep === "CONFIRM_SIGN_UP") {
-      await resendSignUpCode({ username });
       return "/auth/confirm-signup";
     }
 

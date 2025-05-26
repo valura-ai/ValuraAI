@@ -4,7 +4,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { handleSignOut } from "../lib/cognito-actions";
-import CryptoTable from "../components/ui/CryptoTable";
+import CryptoTable from "../components/ui/Cryptotable";
 
 export default function HomePage() {
   const router = useRouter();
