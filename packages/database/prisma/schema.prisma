@@ -13,16 +13,22 @@ datasource db {
 
 model User {
   cognitoId      String   @id @map("cognito_id")
+  email          String   @unique @map("email")
   firstName      String   @map("first_name")
   lastName       String   @map("last_name")
   mobileNumber   String   @map("mobile_number")
-  isUae          Boolean  @map("is_uae")
+  isUae          Boolean  @default(false) @map("is_uae")
   inquiryId      String?  @unique @map("inquiry_id")
-  kycStatus      String   @map("kyc_status")
+  kycStatus      KycStatus @default(PENDING) @map("kyc_status")
   category       String   @default("Unknown") @map("category")
   createdAt      DateTime @default(now()) @map("created_at")
   updatedAt      DateTime @updatedAt @map("updated_at")
   watchlists     Watchlist[]
+}
+
+enum KycStatus {
+  PENDING
+  COMPLETED
 }
 
 model FinancialInstrument {

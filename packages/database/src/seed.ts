@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 const DEFAULT_USERS = [
   {
     cognitoId: "user_1",
+    email: "alice@example.com",
     firstName: "Alice",
     lastName: "Smith",
     mobileNumber: "1234567890",
@@ -15,12 +16,13 @@ const DEFAULT_USERS = [
   },
   {
     cognitoId: "user_2",
+    email: "bob@example.com",
     firstName: "Bob",
     lastName: "Johnson",
     mobileNumber: "0987654321",
     isUae: false,
     inquiryId: "inquiry_2",
-    kycStatus: "DONE",
+    kycStatus: "COMPLETED",
     category: "Trader",
   },
 ];
