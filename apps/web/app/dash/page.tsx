@@ -1,10 +1,12 @@
+// app/page.tsx
 "use client";
 
 import React from "react";
 import { useRouter } from "next/navigation";
 import { handleSignOut } from "../lib/cognito-actions";
+import CryptoTable from "../components/ui/CryptoTable";
 
-export default function LandingPage() {
+export default function HomePage() {
   const router = useRouter();
 
   const onSignOut = async () => {
@@ -13,9 +15,10 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="bg-white flex flex-col items-stretch pb-[27px]">
-      <div className="flex justify-between items-center p-4">
-        <h1 className="text-2xl font-bold">DASHBOARD</h1>
+    <div className="bg-white flex flex-col min-h-screen">
+      {/* Header */}
+      <div className="flex justify-between items-center p-4 border-b shadow-sm">
+        <h1 className="text-2xl font-bold text-gray-800">Crypto Dashboard</h1>
         <button
           onClick={onSignOut}
           className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors"
@@ -23,6 +26,11 @@ export default function LandingPage() {
           Sign Out
         </button>
       </div>
+
+      {/* Content */}
+      <main className="flex-1 p-4 overflow-x-auto">
+        <CryptoTable />
+      </main>
     </div>
   );
 }
