@@ -6,6 +6,8 @@ import {
   signOut,
   resendSignUpCode,
   confirmSignIn,
+  resetPassword,
+  confirmResetPassword
 } from "aws-amplify/auth";
 import { getErrorMessage } from "../utils/get-error-message";
 
@@ -172,4 +174,22 @@ export async function handleSignOut(): Promise<string> {
     console.log(getErrorMessage(error));
   }
   return "/auth";
+}
+
+export async function handleForgotPassword(email: string) {
+  try {
+    await resetPassword({ username: email });
+    return null;
+  } catch (error) {
+    return (error instanceof Error ? error.message : String(error)) || "Failed to send reset code.";
+  }
+}
+
+export async function handleConfirmForgotPassword(email: string, code: string, newPassword: string) {
+  try {
+    await confirmResetPassword({ username: email, confirmationCode: code, newPassword });
+    return null;
+  } catch (error) {
+    return (error instanceof Error ? error.message : String(error)) || "Failed to reset password.";
+  }
 }

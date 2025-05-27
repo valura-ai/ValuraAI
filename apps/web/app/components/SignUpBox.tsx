@@ -19,6 +19,7 @@ export const SignUpBox = ({ onSignInClick }: SignUpBoxProps) => {
   const [isUAECitizen, setIsUAECitizen] = useState<"yes" | "no" | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const router = useRouter();
 
@@ -121,15 +122,23 @@ export const SignUpBox = ({ onSignInClick }: SignUpBoxProps) => {
             disabled={loading}
           />
         </div> */}
-        <div className="mb-4">
+        <div className="mb-4 relative">
           <input
-            type="password"
-            className="w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+            type={showPassword ? "text" : "password"}
+            className="w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-500 pr-16"
             placeholder="Enter Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={loading}
           />
+          <button
+            type="button"
+            onClick={() => setShowPassword((prev) => !prev)}
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-gradient-to-r from-purple-700 to-cyan-600 text-white font-semibold text-xs focus:outline-none px-3 py-1 rounded-lg shadow"
+            tabIndex={-1}
+          >
+            {showPassword ? "Hide" : "Show"}
+          </button>
         </div>
 
         {/* UAE Citizen */}

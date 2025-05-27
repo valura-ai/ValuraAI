@@ -8,10 +8,6 @@ var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
     for (let key of __getOwnPropNames(from))
@@ -20,7 +16,6 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
-var __reExport = (target, mod, secondTarget) => (__copyProps(target, mod, "default"), secondTarget && __copyProps(secondTarget, mod, "default"));
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
   // If the importer is in node compatibility mode or this is not an ESM
   // file that has been converted to a CommonJS file using a Babel-
@@ -5844,17 +5839,29 @@ var require_client = __commonJS({
       Serializable: "Serializable"
     });
     exports2.Prisma.UserScalarFieldEnum = {
-      id: "id",
-      workosId: "workosId",
+      cognitoId: "cognitoId",
       email: "email",
-      name: "name",
       firstName: "firstName",
       lastName: "lastName",
       mobileNumber: "mobileNumber",
+      isUae: "isUae",
+      inquiryId: "inquiryId",
       kycStatus: "kycStatus",
-      mobileVerification: "mobileVerification",
+      category: "category",
       createdAt: "createdAt",
       updatedAt: "updatedAt"
+    };
+    exports2.Prisma.FinancialInstrumentScalarFieldEnum = {
+      symbol: "symbol",
+      name: "name",
+      type: "type",
+      currency: "currency"
+    };
+    exports2.Prisma.WatchlistScalarFieldEnum = {
+      watchlistId: "watchlistId",
+      userId: "userId",
+      symbol: "symbol",
+      addedAt: "addedAt"
     };
     exports2.Prisma.SortOrder = {
       asc: "asc",
@@ -5870,14 +5877,12 @@ var require_client = __commonJS({
     };
     exports2.KycStatus = exports2.$Enums.KycStatus = {
       PENDING: "PENDING",
-      DONE: "DONE"
-    };
-    exports2.VerificationStatus = exports2.$Enums.VerificationStatus = {
-      PENDING: "PENDING",
-      DONE: "DONE"
+      COMPLETED: "COMPLETED"
     };
     exports2.Prisma.ModelName = {
-      User: "User"
+      User: "User",
+      FinancialInstrument: "FinancialInstrument",
+      Watchlist: "Watchlist"
     };
     var config = {
       "generator": {
@@ -5924,8 +5929,8 @@ var require_client = __commonJS({
           }
         }
       },
-      "inlineSchema": '// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = "prisma-client-js"\n  output   = "../generated/client"\n}\n\ndatasource db {\n  provider = "postgresql"\n  url      = env("DATABASE_URL")\n}\n\nmodel User {\n  id                 String             @id @default(cuid())\n  workosId           String?            @unique\n  email              String?            @unique\n  name               String? // Added to match app expectation\n  firstName          String?\n  lastName           String?\n  mobileNumber       String? // Not required\n  kycStatus          KycStatus          @default(PENDING)\n  mobileVerification VerificationStatus @default(PENDING)\n  createdAt          DateTime?          @default(now())\n  updatedAt          DateTime?          @updatedAt\n}\n\nenum KycStatus {\n  PENDING\n  DONE\n}\n\nenum VerificationStatus {\n  PENDING\n  DONE\n}\n',
-      "inlineSchemaHash": "4591f54959acb580fc729b3d235788d67e3d1513e75128a77b7124521c967e08",
+      "inlineSchema": '// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = "prisma-client-js"\n  output   = "../generated/client"\n}\n\ndatasource db {\n  provider = "postgresql"\n  url      = env("DATABASE_URL")\n}\n\nmodel User {\n  cognitoId    String      @id @map("cognito_id")\n  email        String      @unique @map("email")\n  firstName    String      @map("first_name")\n  lastName     String      @map("last_name")\n  mobileNumber String      @map("mobile_number")\n  isUae        Boolean     @default(false) @map("is_uae")\n  inquiryId    String?     @unique @map("inquiry_id")\n  kycStatus    KycStatus   @default(PENDING) @map("kyc_status")\n  category     String      @default("Unknown") @map("category")\n  createdAt    DateTime    @default(now()) @map("created_at")\n  updatedAt    DateTime    @updatedAt @map("updated_at")\n  watchlists   Watchlist[]\n}\n\nenum KycStatus {\n  PENDING\n  COMPLETED\n}\n\nmodel FinancialInstrument {\n  symbol     String      @id\n  name       String\n  type       String\n  currency   String\n  watchlists Watchlist[]\n}\n\nmodel Watchlist {\n  watchlistId String   @id @map("watchlist_id")\n  userId      String   @map("user_id")\n  symbol      String   @map("symbol")\n  addedAt     DateTime @map("added_at")\n\n  user       User                @relation(fields: [userId], references: [cognitoId])\n  instrument FinancialInstrument @relation(fields: [symbol], references: [symbol])\n\n  @@unique([userId, symbol]) // Prevent duplicate entries for the same user and instrument\n}\n\n// Enums and other configurations remain unchanged\n',
+      "inlineSchemaHash": "f969a017b2c0324efe6e778eb85820c1eceb8b547620661e55b19905f2f4ede5",
       "copyEngine": true
     };
     var fs = require("fs");
@@ -5941,7 +5946,7 @@ var require_client = __commonJS({
       config.dirname = path.join(process.cwd(), alternativePath);
       config.isBundled = true;
     }
-    config.runtimeDataModel = JSON.parse('{"models":{"User":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":null,"default":{"name":"cuid","args":[1]},"isGenerated":false,"isUpdatedAt":false},{"name":"workosId","kind":"scalar","isList":false,"isRequired":false,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"email","kind":"scalar","isList":false,"isRequired":false,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"name","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"firstName","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"lastName","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"mobileNumber","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"kycStatus","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"KycStatus","nativeType":null,"default":"PENDING","isGenerated":false,"isUpdatedAt":false},{"name":"mobileVerification","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"VerificationStatus","nativeType":null,"default":"PENDING","isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":null,"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":null,"isGenerated":false,"isUpdatedAt":true}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false}},"enums":{"KycStatus":{"values":[{"name":"PENDING","dbName":null},{"name":"DONE","dbName":null}],"dbName":null},"VerificationStatus":{"values":[{"name":"PENDING","dbName":null},{"name":"DONE","dbName":null}],"dbName":null}},"types":{}}');
+    config.runtimeDataModel = JSON.parse('{"models":{"User":{"dbName":null,"schema":null,"fields":[{"name":"cognitoId","dbName":"cognito_id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"email","dbName":"email","kind":"scalar","isList":false,"isRequired":true,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"firstName","dbName":"first_name","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"lastName","dbName":"last_name","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"mobileNumber","dbName":"mobile_number","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"isUae","dbName":"is_uae","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"Boolean","nativeType":null,"default":false,"isGenerated":false,"isUpdatedAt":false},{"name":"inquiryId","dbName":"inquiry_id","kind":"scalar","isList":false,"isRequired":false,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"kycStatus","dbName":"kyc_status","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"KycStatus","nativeType":null,"default":"PENDING","isGenerated":false,"isUpdatedAt":false},{"name":"category","dbName":"category","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":null,"default":"Unknown","isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","dbName":"created_at","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":null,"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","dbName":"updated_at","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":null,"isGenerated":false,"isUpdatedAt":true},{"name":"watchlists","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Watchlist","nativeType":null,"relationName":"UserToWatchlist","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"FinancialInstrument":{"dbName":null,"schema":null,"fields":[{"name":"symbol","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"name","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"type","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"currency","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"watchlists","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Watchlist","nativeType":null,"relationName":"FinancialInstrumentToWatchlist","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"Watchlist":{"dbName":null,"schema":null,"fields":[{"name":"watchlistId","dbName":"watchlist_id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"userId","dbName":"user_id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"symbol","dbName":"symbol","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"addedAt","dbName":"added_at","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"user","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"User","nativeType":null,"relationName":"UserToWatchlist","relationFromFields":["userId"],"relationToFields":["cognitoId"],"isGenerated":false,"isUpdatedAt":false},{"name":"instrument","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"FinancialInstrument","nativeType":null,"relationName":"FinancialInstrumentToWatchlist","relationFromFields":["symbol"],"relationToFields":["symbol"],"isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[["userId","symbol"]],"uniqueIndexes":[{"name":null,"fields":["userId","symbol"]}],"isGenerated":false}},"enums":{"KycStatus":{"values":[{"name":"PENDING","dbName":null},{"name":"COMPLETED","dbName":null}],"dbName":null}},"types":{}}');
     defineDmmfProperty2(exports2.Prisma, config.runtimeDataModel);
     config.engineWasm = void 0;
     config.compilerWasm = void 0;
@@ -5960,36 +5965,59 @@ var require_client = __commonJS({
   }
 });
 
-// src/client.ts
-var client_exports = {};
-__export(client_exports, {
-  prisma: () => prisma
-});
-var import_client = __toESM(require_client());
-__reExport(client_exports, __toESM(require_client()));
-var globalForPrisma = global;
-var prisma = globalForPrisma.prisma || new import_client.PrismaClient();
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
-
 // src/seed.ts
+var import_client = __toESM(require_client());
+var prisma = new import_client.PrismaClient();
 var DEFAULT_USERS = [
   {
-    workosId: "workos_1",
+    cognitoId: "user_1",
     email: "alice@example.com",
     firstName: "Alice",
     lastName: "Smith",
     mobileNumber: "1234567890",
+    isUae: true,
+    inquiryId: "inquiry_1",
     kycStatus: "PENDING",
-    mobileVerification: "PENDING"
+    category: "Investor"
   },
   {
-    workosId: "workos_2",
+    cognitoId: "user_2",
     email: "bob@example.com",
     firstName: "Bob",
     lastName: "Johnson",
-    mobileNumber: "9876543210",
-    kycStatus: "DONE",
-    mobileVerification: "DONE"
+    mobileNumber: "0987654321",
+    isUae: false,
+    inquiryId: "inquiry_2",
+    kycStatus: "COMPLETED",
+    category: "Trader"
+  }
+];
+var DEFAULT_FINANCIAL_INSTRUMENTS = [
+  {
+    symbol: "AAPL",
+    name: "Apple Inc.",
+    type: "Stock",
+    currency: "USD"
+  },
+  {
+    symbol: "GOOGL",
+    name: "Alphabet Inc.",
+    type: "Stock",
+    currency: "USD"
+  }
+];
+var DEFAULT_WATCHLISTS = [
+  {
+    watchlistId: "watchlist_1",
+    userId: "user_1",
+    symbol: "AAPL",
+    addedAt: /* @__PURE__ */ new Date()
+  },
+  {
+    watchlistId: "watchlist_2",
+    userId: "user_2",
+    symbol: "GOOGL",
+    addedAt: /* @__PURE__ */ new Date()
   }
 ];
 (async () => {
@@ -5997,21 +6025,31 @@ var DEFAULT_USERS = [
     await Promise.all(
       DEFAULT_USERS.map(
         (user) => prisma.user.upsert({
-          where: { email: user.email },
-          update: {
-            ...user,
-            kycStatus: user.kycStatus,
-            mobileVerification: user.mobileVerification
-          },
-          create: {
-            ...user,
-            kycStatus: user.kycStatus,
-            mobileVerification: user.mobileVerification
-          }
+          where: { cognitoId: user.cognitoId },
+          update: user,
+          create: user
         })
       )
     );
-    console.log("Seeded users successfully");
+    await Promise.all(
+      DEFAULT_FINANCIAL_INSTRUMENTS.map(
+        (instrument) => prisma.financialInstrument.upsert({
+          where: { symbol: instrument.symbol },
+          update: instrument,
+          create: instrument
+        })
+      )
+    );
+    await Promise.all(
+      DEFAULT_WATCHLISTS.map(
+        (watchlist) => prisma.watchlist.upsert({
+          where: { watchlistId: watchlist.watchlistId },
+          update: watchlist,
+          create: watchlist
+        })
+      )
+    );
+    console.log("Seeded data successfully");
   } catch (error) {
     console.error(error);
     process.exit(1);

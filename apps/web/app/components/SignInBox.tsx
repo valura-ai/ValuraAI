@@ -27,6 +27,11 @@ export const SignInBox = ({ onSignUpClick }: SignInBoxProps) => {
     type: null,
     data: null,
   });
+  const [forgotStep, setForgotStep] = useState<null | "EMAIL" | "CODE">(null);
+  const [forgotEmail, setForgotEmail] = useState("");
+  const [forgotCode, setForgotCode] = useState("");
+  const [forgotNewPassword, setForgotNewPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async () => {
@@ -111,6 +116,46 @@ export const SignInBox = ({ onSignUpClick }: SignInBoxProps) => {
     }
   };
 
+  const handleForgotPasswordRequest = async () => {
+    if (!forgotEmail) {
+      setError("Please enter your email address.");
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    try {
+      // Call Cognito forgot password (to be implemented in cognito-actions)
+      await import("../lib/cognito-actions").then((m) =>
+        m.handleForgotPassword(forgotEmail)
+      );
+      setForgotStep("CODE");
+    } catch (err: any) {
+      setError(err.message || "Failed to send reset code.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleForgotPasswordConfirm = async () => {
+    if (!forgotCode || !forgotNewPassword) {
+      setError("Please enter the code and new password.");
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    try {
+      await import("../lib/cognito-actions").then((m) =>
+        m.handleConfirmForgotPassword(forgotEmail, forgotCode, forgotNewPassword)
+      );
+      setForgotStep(null);
+      setError("Password reset successful. Please sign in.");
+    } catch (err: any) {
+      setError(err.message || "Failed to reset password.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const renderMFAForm = () => {
     if (mfaState.type === "TOTP_SETUP") {
       return (
@@ -183,6 +228,75 @@ export const SignInBox = ({ onSignUpClick }: SignInBoxProps) => {
     return null;
   };
 
+  // Add forgot password UI before the main return
+  if (forgotStep === "EMAIL") {
+    return (
+      <div className="flex flex-col items-center bg-black/20 p-8 rounded-2xl">
+        <h2 className="text-white text-xl mb-4">Forgot Password</h2>
+        <input
+          type="email"
+          className="w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm placeholder-white/50 mb-4"
+          placeholder="Enter your email"
+          value={forgotEmail}
+          onChange={(e) => setForgotEmail(e.target.value)}
+          disabled={loading}
+        />
+        <button
+          onClick={handleForgotPasswordRequest}
+          disabled={loading}
+          className="bg-gradient-to-r from-purple-700 to-cyan-600 text-white text-sm font-medium py-2 px-6 rounded-3xl mb-2"
+        >
+          {loading ? "Sending..." : "Send Reset Code"}
+        </button>
+        <button
+          onClick={() => setForgotStep(null)}
+          className="text-cyan-400 text-xs mt-2"
+        >
+          Back to Sign In
+        </button>
+        {error && <div className="text-red-400 text-sm mt-2">{error}</div>}
+      </div>
+    );
+  }
+
+  if (forgotStep === "CODE") {
+    return (
+      <div className="flex flex-col items-center bg-black/20 p-8 rounded-2xl">
+        <h2 className="text-white text-xl mb-4">Reset Password</h2>
+        <input
+          type="text"
+          className="w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm placeholder-white/50 mb-4"
+          placeholder="Enter code from email"
+          value={forgotCode}
+          onChange={(e) => setForgotCode(e.target.value)}
+          disabled={loading}
+        />
+        <input
+          type="password"
+          className="w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm placeholder-white/50 mb-4"
+          placeholder="Enter new password"
+          value={forgotNewPassword}
+          onChange={(e) => setForgotNewPassword(e.target.value)}
+          disabled={loading}
+        />
+        <button
+          onClick={handleForgotPasswordConfirm}
+          disabled={loading}
+          className="bg-gradient-to-r from-purple-700 to-cyan-600 text-white text-sm font-medium py-2 px-6 rounded-3xl mb-2"
+        >
+          {loading ? "Resetting..." : "Reset Password"}
+        </button>
+        <button
+          onClick={() => setForgotStep("EMAIL")}
+          className="text-cyan-400 text-xs mt-2"
+        >
+          Back
+        </button>
+        {error && <div className="text-red-400 text-sm mt-2">{error}</div>}
+      </div>
+    );
+  }
+
   return (
     <div className="flex items-center gap-32">
       <div className="flex flex-col items-center w-[25vw]">
@@ -242,16 +356,24 @@ export const SignInBox = ({ onSignUpClick }: SignInBoxProps) => {
             </div>
 
             {/* Password Input */}
-            <div className="mb-6">
+            <div className="mb-6 relative">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
-                className="w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                className="w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-500 pr-16"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loading}
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-gradient-to-r from-purple-700 to-cyan-600 text-white font-semibold text-xs focus:outline-none px-3 py-1 rounded-lg shadow"
+                tabIndex={-1}
+              >
+                {showPassword ? "Hide" : "Show"}
+              </button>
             </div>
 
             {/* Remember me and Forget Password */}
@@ -274,6 +396,11 @@ export const SignInBox = ({ onSignUpClick }: SignInBoxProps) => {
               </div>
               <a
                 href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setForgotStep("EMAIL");
+                  setError(null);
+                }}
                 className="text-sm bg-gradient-to-r from-emerald-500 to-yellow-400 bg-clip-text text-transparent"
               >
                 Forgot password?
