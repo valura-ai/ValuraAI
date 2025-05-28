@@ -49,7 +49,7 @@ export const WelcomeSection = ({
         </h1>
         <div className="flex justify-center lg:justify-start mb-6">
           <Image
-            src="/assets/logo_1.svg"
+            src="/assets/logo-valura.png"
             alt="Logo"
             width={306.53}
             height={102.9}
