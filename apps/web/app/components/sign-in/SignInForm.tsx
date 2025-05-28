@@ -103,7 +103,7 @@ export const SignInForm = ({
               className={`rounded-full ${
                 rememberMe
                   ? "bg-green-600 border-green-600"
-                  : "bg-gray-400"
+                  : "bg-zinc-400"
               }`}
             />
             <label
