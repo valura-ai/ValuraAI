@@ -2,12 +2,15 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { handleSendEmailVerificationCode, handleConfirmSignUp } from "../lib/cognito-actions";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 interface EmailVerificationProps {
-  email: string
+  email: string;
+  onBack: () => void;
 }
 
-export const EmailVerification = ({ email }: EmailVerificationProps) => {
+export const EmailVerification = ({ email, onBack }: EmailVerificationProps) => {
   const [verificationCode, setVerificationCode] = useState("");
   const [isCodeSent, setIsCodeSent] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -27,10 +30,6 @@ export const EmailVerification = ({ email }: EmailVerificationProps) => {
       if (timer) clearInterval(timer);
     };
   }, [resendCooldown]);
-
-  const onSignInClick = () => {
-    router.push("/auth")
-  }
 
   const handleSendCode = async () => {
     if (resendCooldown > 0) return;
@@ -76,7 +75,7 @@ export const EmailVerification = ({ email }: EmailVerificationProps) => {
       
       if (result) {
         if (result.startsWith("/")) {
-          router.push(result);
+          window.location.reload()
         } else {
           setError(result);
         }
@@ -89,102 +88,70 @@ export const EmailVerification = ({ email }: EmailVerificationProps) => {
   };
 
   return (
-    <div className="flex items-center gap-32">
-      <div className="flex flex-col items-center w-[25vw]">
-        <div className="flex items-center mb-2 w-full">
-          <div className="flex flex-col items-start mr-2">
-            <h1 className="text-white mb-[-0.8rem] font-extralight text-3xl pl-2.5 self-start">
-              Welcome to
-            </h1>
-            <img
-              src="/valura-text.svg"
-              alt="Valura"
-              className="h-20 w-auto object-contain"
+    <div className="w-full max-w-md">
+  
+
+        {/* Form */}
+        <div className="space-y-6">
+          <div>
+            <label className="block text-slate-700 text-sm font-medium mb-2">
+              Email Address
+            </label>
+            <Input
+              type="email"
+              value={email}
+              disabled
+              className="w-full h-12 px-4 rounded-full border border-slate-200 focus:border-green-600 transition-all duration-200 bg-gray-50 focus:ring-0 focus:outline-none focus:shadow-none"
             />
           </div>
-          <img
-            src="/valura-logo.svg"
-            alt="Valura Logo"
-            className="h-24 mb-5 w-auto object-contain"
-          />
-        </div>
-        <p className="text-white/80 pl-4 text-sm text-left w-full -mt-2">
-          Create your account to access your personalized wealth management
-          dashboard.
-        </p>
-        <div className="mt-2 w-full pl-4">
-          <p className="text-white/80 text-sm mt-2 mb-4">
-            Already have an account?
-          </p>
-          <button
-            onClick={onSignInClick}
-            className="bg-black/30 text-sm hover:bg-black/40 text-white px-6 py-2 rounded-3xl transition-all duration-200 border border-white/20"
+
+          {isCodeSent && (
+            <div>
+              <label className="block text-slate-700 text-sm font-medium mb-2">
+                Verification Code
+              </label>
+              <Input
+                type="text"
+                placeholder="Enter verification code"
+                value={verificationCode}
+                onChange={(e) => setVerificationCode(e.target.value)}
+                disabled={loading}
+                className={`w-full h-12 px-4 rounded-full border transition-all duration-200 ${
+                  verificationCode ? 'border-green-600' : 'border-slate-200'
+                } focus:border-green-600 focus:ring-0 focus:outline-none focus:shadow-none`}
+              />
+            </div>
+          )}
+
+          {error && (
+            <div className="text-red-500 text-sm font-medium">{error}</div>
+          )}
+
+          {successMessage && (
+            <div className="text-green-500 text-sm font-medium">{successMessage}</div>
+          )}
+
+          <Button
+            onClick={isCodeSent ? handleVerifyCode : handleSendCode}
+            disabled={loading}
+            className="w-full h-12 bg-green-600 hover:bg-emerald-700 text-white font-semibold rounded-full transition-all duration-200 shadow-lg hover:shadow-xl"
           >
-            Sign In
-          </button>
+            {loading 
+              ? (isCodeSent ? "Verifying..." : "Sending Code...") 
+              : (isCodeSent ? "Verify & Continue" : "Send Verification Code")}
+          </Button>
+
+          {isCodeSent && (
+            <Button
+              onClick={handleSendCode}
+              disabled={loading || resendCooldown > 0}
+              variant="outline"
+              className="w-full h-12 border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold rounded-full transition-all duration-200"
+            >
+              {resendCooldown > 0 ? `Resend Code (${resendCooldown}s)` : 'Resend Code'}
+            </Button>
+          )}
         </div>
       </div>
-
-      {/* White Rectangle with Verification Form */}
-      <div className="bg-black/20 backdrop-blur-sm w-[28vw] h-auto min-h-[200px] py-9 px-9 rounded-2xl shadow-lg flex flex-col justify-center border border-white/20">
-        {/* Email Input */}
-        <div className="mb-4">
-          <input
-            type="email"
-            id="email"
-            className="w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-500"
-            placeholder={email}
-            disabled
-          />
-        </div>
-
-        {isCodeSent && (
-          <div className="mb-4">
-            <input
-              type="text"
-              id="code"
-              className="w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-500"
-              placeholder="Enter Verification Code"
-              value={verificationCode}
-              onChange={(e) => setVerificationCode(e.target.value)}
-              disabled={loading}
-            />
-          </div>
-        )}
-
-        {error && (
-          <div className="mb-4 text-red-400 text-sm font-medium">{error}</div>
-        )}
-
-        {successMessage && (
-          <div className="mb-4 text-green-400 text-sm font-medium">{successMessage}</div>
-        )}
-
-        {/* Main Action Button */}
-        <button
-          onClick={isCodeSent ? handleVerifyCode : handleSendCode}
-          disabled={loading}
-          className={`${
-            loading ? "opacity-50 cursor-not-allowed" : ""
-          } bg-gradient-to-r from-purple-700 to-cyan-600 text-white text-sm font-medium py-2 rounded-3xl transition-all duration-300`}
-        >
-          {loading 
-            ? (isCodeSent ? "Verifying..." : "Sending Code...") 
-            : (isCodeSent ? "Verify & Continue" : "Send Verification Code")}
-        </button>
-
-        {isCodeSent && (
-          <button
-            onClick={handleSendCode}
-            disabled={loading || resendCooldown > 0}
-            className={`mt-4 w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm transition-all duration-200 ${
-              resendCooldown > 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white/20'
-            }`}
-          >
-            {resendCooldown > 0 ? `Resend Code (${resendCooldown}s)` : 'Resend Code'}
-          </button>
-        )}
-      </div>
-    </div>
   );
 };

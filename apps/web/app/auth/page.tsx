@@ -2,7 +2,7 @@
 
 import React, { Suspense, useState, useEffect } from "react";
 import { SignInBox } from "../components/SignInBox";
-import { SignUpBox } from "../components/SignUpBox";
+import { SignUpFlow } from "../components/SignUpFlow";
 import { useSearchParams } from "next/navigation";
 
 export default function AuthPage() {
@@ -47,8 +47,6 @@ function AuthContent() {
         }}
       />
 
-
-
       {/* Error notification */}
       {error && (
         <div className="fixed top-24 left-0 right-0 mx-auto w-fit bg-red-500/80 text-white px-6 py-3 rounded-md z-50">
@@ -59,7 +57,7 @@ function AuthContent() {
       {/* CONTENT */}
       <div className="absolute top-0 left-0 w-full h-screen flex items-center justify-center z-[2]">
         {isSignUp ? (
-          <SignUpBox onSignInClick={() => setIsSignUp(false)} />
+          <SignUpFlow />
         ) : (
           <SignInBox onSignUpClick={() => setIsSignUp(true)} />
         )}
