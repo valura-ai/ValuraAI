@@ -7,7 +7,11 @@ import { useRouter } from "next/navigation";
 
 type SignUpStep = "name" | "credentials" | "verification";
 
-export const SignUpFlow = () => {
+interface SignUpFlowProps {
+  onSignInClick: () => void;
+}
+
+export const SignUpFlow = ({ onSignInClick }: SignUpFlowProps) => {
   const [currentStep, setCurrentStep] = useState<SignUpStep>("name");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -36,7 +40,7 @@ export const SignUpFlow = () => {
   };
 
   const handleSignIn = () => {
-    window.location.reload();
+    onSignInClick();
   };
 
   return (

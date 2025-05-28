@@ -31,9 +31,16 @@ export const WelcomeSection = ({
         <Button
           variant="ghost"
           onClick={handleBack}
-          className="bg-white/80 hover:bg-white/90 rounded-full px-6 py-2 shadow-sm"
+          className="bg-white/80 hover:bg-white/90 rounded-full px-6 py-2 shadow-sm font-extrabold flex items-center justify-center"
         >
-          Back
+          <Image
+            src="/assets/arrow.png"
+            alt="Back arrow"
+            width={16}
+            height={16}
+            className=""
+          />
+          <p className="mt-0.5">Back</p>
         </Button>
       </div>
       <div className="text-center lg:text-left">

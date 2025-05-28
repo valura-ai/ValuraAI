@@ -57,7 +57,7 @@ function AuthContent() {
       {/* CONTENT */}
       <div className="absolute top-0 left-0 w-full h-screen flex items-center justify-center z-[2]">
         {isSignUp ? (
-          <SignUpFlow />
+          <SignUpFlow onSignInClick={() => setIsSignUp(false)} />
         ) : (
           <SignInBox onSignUpClick={() => setIsSignUp(true)} />
         )}
