@@ -34,7 +34,7 @@ export const CitizenshipForm: React.FC<CitizenshipFormProps> = ({ onBack, onProc
 
   return (
     <div className="flex justify-center items-center min-h-screen p-4">
-      <main className="bg-white shadow-xl rounded-[40px] px-14 py-12 w-full max-w-6xl backdrop-blur-[17.247573852539062px] max-md:px-6">
+      <main className="bg-[#FFFFFC] shadow-xl rounded-[40px] px-14 py-12 w-full max-w-6xl backdrop-blur-[17.247573852539062px] max-md:px-6">
         <div className="flex gap-5 max-md:flex-col">
           <section className="w-[55%] max-md:w-full">
             <div className="flex flex-col w-full text-base font-bold leading-6 text-slate-950 max-md:mt-6">

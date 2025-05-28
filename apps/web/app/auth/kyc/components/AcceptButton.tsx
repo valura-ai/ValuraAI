@@ -11,7 +11,7 @@ export const AcceptButton: React.FC<AcceptButtonProps> = ({
 }) => {
   return (
     <button
-      className="px-16 py-5 mt-7 text-base text-center text-white bg-green-600 border border-black rounded-3xl max-md:px-5 w-full transition-all duration-300 ease-in-out hover:opacity-90 disabled:opacity-50 font-bold"
+      className=" px-50 py-3 mt-7 text-base text-center text-white whitespace-nowrap bg-green-600 rounded-3xl shadow-[0px_4px_19px_rgba(119,147,65,0.3)] max-md:px-5 max-md:max-w-full text-base"
 
       onClick={onClick}
       disabled={disabled}

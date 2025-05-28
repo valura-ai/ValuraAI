@@ -23,7 +23,7 @@ export default function AddressPage({ onBack, onProceed }: AddressPageProps) {
 
   return (
     <div className="flex justify-center items-center min-h-screen p-4">
-      <main className="bg-white shadow-xl rounded-[40px] px-14 py-12 w-full max-w-6xl backdrop-blur-[17.247573852539062px] max-md:px-6">
+      <main className="bg-[#FFFFFC] shadow-xl rounded-[40px] px-14 py-12 w-full max-w-6xl backdrop-blur-[17.247573852539062px] max-md:px-6">
         <div className="px-10 py-16 max-w-full backdrop-blur-[17.247573852539062px] rounded-[40px] w-[1113px] max-md:px-5">
           <div className="flex gap-5 max-md:flex-col">
             <section className="w-6/12 max-md:ml-0 max-md:w-full">

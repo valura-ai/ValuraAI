@@ -19,7 +19,7 @@ export function SourceOfFundsForm({ onBack }: SourceOfFundsFormProps) {
 
   return (
     <div className="flex justify-center items-center min-h-screen p-4">
-    <div className="bg-white shadow-xl rounded-[40px] px-14 py-12 w-full max-w-6xl backdrop-blur-[17.247573852539062px] max-md:px-6">
+    <div className="bg-[#FFFFFC] shadow-xl rounded-[40px] px-14 py-12 w-full max-w-6xl backdrop-blur-[17.247573852539062px] max-md:px-6">
       <div className="flex gap-5 max-md:flex-col">
         <div className="w-6/12 max-md:ml-0 max-md:w-full">
           <div className="flex flex-col w-full text-slate-950 max-md:mt-10 max-md:max-w-full">

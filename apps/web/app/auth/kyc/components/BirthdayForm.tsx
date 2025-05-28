@@ -8,36 +8,46 @@ interface BirthdayFormProps {
 export function BirthdayForm({ onProceed }: BirthdayFormProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (onProceed) onProceed();
+    onProceed?.();
   };
+
+  const inputClass =
+    "text-center text-sm text-gray-500 placeholder-gray-400 bg-white border border-gray-300 rounded-3xl py-4 px-8 focus:outline-none";
+
   return (
     <form
       onSubmit={handleSubmit}
-      className="self-stretch my-auto w-full text-center whitespace-nowrap max-md:mt-10 max-md:max-w-full"
+      className="flex flex-col items-center space-y-6 max-w-xs mx-auto w-full"
     >
-      <div className="flex gap-3 text-base leading-none text-neutral-400 tracking-wide justify-center">
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <div className="flex gap-4 justify-center w-full">
         <input
           type="text"
           placeholder="DD"
           maxLength={2}
-          className="w-16 px-5 py-2 bg-white border border-solid border-zinc-400 rounded-full text-neutral-400 text-center"
+          className={`${inputClass} w-20`} // Increased from w-16
         />
         <input
           type="text"
           placeholder="MM"
           maxLength={2}
-          className="w-16 px-5 py-2 bg-white border border-solid border-zinc-400 rounded-full text-neutral-400 text-center"
+          className={`${inputClass} w-20`} // Increased from w-16
         />
         <input
           type="text"
           placeholder="YYYY"
           maxLength={4}
-          className="w-24 px-5 py-2 bg-white border border-solid border-zinc-400 rounded-full text-neutral-400 text-center"
+          className={`${inputClass} w-32`} // Increased from w-24
         />
       </div>
+
       <button
         type="submit"
-        className="px-26 py-2 mt-4 text-sm text-white bg-green-600 rounded-full shadow-md max-md:px-5 max-md:max-w-full"
+        className="w-full py-3 text-white text-sm bg-green-600 rounded-full hover:bg-green-700 transition"
       >
         Proceed
       </button>

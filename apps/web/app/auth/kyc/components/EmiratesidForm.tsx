@@ -10,22 +10,28 @@ export function EmiratesForm({ onProceed }: EmiratesFormProps) {
     e.preventDefault();
     if (onProceed) onProceed();
   };
+
   return (
     <form
       onSubmit={handleSubmit}
-      className="self-stretch my-auto w-full text-center whitespace-nowrap max-md:mt-10 max-md:max-w-full"
+      className="flex flex-col  w-full max-w-sm mx-auto py-10 space-y-6"
     >
-      <div className="flex gap-3 text-base leading-none text-neutral-400 tracking-wide justify-center">
-        <input
-          type="Integer"
-          placeholder="Emirates ID"
-          maxLength={20}
-          className=" px-14 py-2 bg-white border border-solid border-zinc-400 rounded-full text-neutral-400 text-center"
-        />
-      </div>
+      <label
+        htmlFor="emirates-id"
+        className="text-sm font-medium text-gray-700"
+      >
+        Type your Emirates ID
+      </label>
+      <input
+        id="emirates-id"
+        type="text"
+        placeholder="Emirates ID"
+        maxLength={20}
+        className="w-full px-6 py-3 text-center text-gray-500 border border-zinc-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+      />
       <button
         type="submit"
-        className="px-26 py-2 mt-4 text-sm text-white bg-green-600 rounded-full shadow-md max-md:px-5 max-md:max-w-full"
+        className="w-full py-3 text-white bg-green-600 rounded-full hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
       >
         Proceed
       </button>

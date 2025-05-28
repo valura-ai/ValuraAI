@@ -89,7 +89,7 @@ export default function IdentityVerification({ onBack, onProceed }: IdentityVeri
   return (
     <div className="flex justify-center items-center min-h-screen p-4">
       {loading && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md bg-black/10">
+        <div className="bg-[#FFFFFC] fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md bg-black/10">
           <div className="bg-white rounded-xl p-8 shadow-lg flex flex-col items-center">
             {error ? (
               <React.Fragment>

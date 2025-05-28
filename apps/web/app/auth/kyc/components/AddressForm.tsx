@@ -30,13 +30,14 @@ export function AddressForm({ onSubmit }: AddressFormProps) {
   const handleSubmit = () => {
     onSubmit?.(formData);
   };
-  const inputClass = "p-2 h-10 rounded-3xl border border-gray-300 w-full text-sm";
+
+  const inputClass =
+    "p-4 h-12 rounded-full border border-gray-300 w-full text-sm placeholder-gray-500";
+
   return (
-     <form className="flex flex-col space-y-5 text-sm text-neutral-600 max-w-md mx-auto">
+    <form className="flex flex-col space-y-6 text-sm text-neutral-600 max-w-md mx-auto p-4">
       <fieldset className="border-0 p-0 m-0">
-        <legend className="text-base text-slate-950 mb-2">
-          Type your address
-        </legend>
+        <legend className="text-base text-gray-800 mb-2 font-medium">Type your address</legend>
 
         <InputField
           placeholder="Address (Area and Street)"
@@ -45,21 +46,21 @@ export function AddressForm({ onSubmit }: AddressFormProps) {
           className={inputClass}
         />
         <InputField
-          placeholder="City / District / Town"
+          placeholder="City/ District/ Town"
           value={formData.city}
           onChange={handleInputChange("city")}
-          className={inputClass + " mt-2"}
+          className={inputClass + " mt-4"}
         />
         <InputField
           placeholder="State"
           value={formData.state}
           onChange={handleInputChange("state")}
-          className={inputClass + " mt-2"}
+          className={inputClass + " mt-4"}
         />
       </fieldset>
-
+      <br />
       <fieldset className="border-0 p-0 m-0">
-        <legend className="text-base text-slate-950 mb-2">Zipcode</legend>
+        <legend className="text-base text-gray-800 mb-2 font-medium">Zipcode</legend>
         <InputField
           placeholder="Zipcode"
           value={formData.zipcode}
@@ -67,9 +68,9 @@ export function AddressForm({ onSubmit }: AddressFormProps) {
           className={inputClass}
         />
       </fieldset>
-
+      <br />
       <fieldset className="border-0 p-0 m-0">
-        <legend className="text-base text-slate-950 mb-2">Country</legend>
+        <legend className="text-base text-gray-800 mb-2 font-medium">Country</legend>
         <InputField
           placeholder="Country"
           value={formData.country}
@@ -77,11 +78,12 @@ export function AddressForm({ onSubmit }: AddressFormProps) {
           className={inputClass}
         />
       </fieldset>
-
+      <br />
+      <br />
       <button
         type="button"
         onClick={handleSubmit}
-        className="px-6 py-2 mt-4 text-white bg-green-600 rounded-xl text-sm hover:bg-green-700 transition"
+        className="w-full px-6 py-3 mt-4 text-white bg-green-600 rounded-full text-sm font-medium hover:bg-green-700 transition"
       >
         Proceed
       </button>
