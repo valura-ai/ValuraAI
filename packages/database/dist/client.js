@@ -5898,7 +5898,7 @@ var require_client = __commonJS({
           "value": "prisma-client-js"
         },
         "output": {
-          "value": "/Users/aparajith/Desktop/2cents/ValuraAI/packages/database/generated/client",
+          "value": "C:\\Users\\ABHIS\\ValuraAI\\packages\\database\\generated\\client",
           "fromEnvVar": null
         },
         "config": {
@@ -5907,16 +5907,17 @@ var require_client = __commonJS({
         "binaryTargets": [
           {
             "fromEnvVar": null,
-            "value": "darwin-arm64",
+            "value": "windows",
             "native": true
           }
         ],
         "previewFeatures": [],
-        "sourceFilePath": "/Users/aparajith/Desktop/2cents/ValuraAI/packages/database/prisma/schema.prisma",
+        "sourceFilePath": "C:\\Users\\ABHIS\\ValuraAI\\packages\\database\\prisma\\schema.prisma",
         "isCustomOutput": true
       },
       "relativeEnvPaths": {
-        "rootEnvPath": null
+        "rootEnvPath": null,
+        "schemaEnvPath": "../../.env"
       },
       "relativePath": "../../prisma",
       "clientVersion": "6.8.2",
@@ -5963,8 +5964,8 @@ var require_client = __commonJS({
     var PrismaClient2 = getPrismaClient2(config);
     exports2.PrismaClient = PrismaClient2;
     Object.assign(exports2, Prisma);
-    path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
-    path.join(process.cwd(), "generated/client/libquery_engine-darwin-arm64.dylib.node");
+    path.join(__dirname, "query_engine-windows.dll.node");
+    path.join(process.cwd(), "generated/client/query_engine-windows.dll.node");
     path.join(__dirname, "schema.prisma");
     path.join(process.cwd(), "generated/client/schema.prisma");
   }

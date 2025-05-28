@@ -228,203 +228,214 @@ export const SignInBox = ({ onSignUpClick }: SignInBoxProps) => {
     return null;
   };
 
-  // Add forgot password UI before the main return
+  // MFA and forgot password forms (keep as is for now)
   if (forgotStep === "EMAIL") {
     return (
-      <div className="flex flex-col items-center bg-black/20 p-8 rounded-2xl">
-        <h2 className="text-white text-xl mb-4">Forgot Password</h2>
-        <input
-          type="email"
-          className="w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm placeholder-white/50 mb-4"
-          placeholder="Enter your email"
-          value={forgotEmail}
-          onChange={(e) => setForgotEmail(e.target.value)}
-          disabled={loading}
-        />
-        <button
-          onClick={handleForgotPasswordRequest}
-          disabled={loading}
-          className="bg-gradient-to-r from-purple-700 to-cyan-600 text-white text-sm font-medium py-2 px-6 rounded-3xl mb-2"
-        >
-          {loading ? "Sending..." : "Send Reset Code"}
-        </button>
-        <button
-          onClick={() => setForgotStep(null)}
-          className="text-cyan-400 text-xs mt-2"
-        >
-          Back to Sign In
-        </button>
-        {error && <div className="text-red-400 text-sm mt-2">{error}</div>}
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-[#f5fafd] to-[#eaf6f1]">
+        <div className="w-[400px] bg-white rounded-3xl shadow-xl px-10 py-10 flex flex-col gap-4">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">Forgot Password</h2>
+          <input
+            type="email"
+            className="w-full bg-gray-100 border border-gray-200 rounded-full px-4 py-2 text-gray-800 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-300 mb-4"
+            placeholder="Enter your email"
+            value={forgotEmail}
+            onChange={(e) => setForgotEmail(e.target.value)}
+            disabled={loading}
+          />
+          <button
+            onClick={handleForgotPasswordRequest}
+            disabled={loading}
+            className={`w-full py-2 rounded-full text-white font-semibold text-base shadow transition ${loading ? "bg-green-400 opacity-60 cursor-not-allowed" : "bg-green-600 hover:bg-green-700"}`}
+          >
+            {loading ? "Sending..." : "Send Reset Code"}
+          </button>
+          <button
+            onClick={() => setForgotStep(null)}
+            className="text-green-600 text-xs mt-2 hover:underline"
+          >
+            Back to Sign In
+          </button>
+          {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
+        </div>
       </div>
     );
   }
 
   if (forgotStep === "CODE") {
     return (
-      <div className="flex flex-col items-center bg-black/20 p-8 rounded-2xl">
-        <h2 className="text-white text-xl mb-4">Reset Password</h2>
-        <input
-          type="text"
-          className="w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm placeholder-white/50 mb-4"
-          placeholder="Enter code from email"
-          value={forgotCode}
-          onChange={(e) => setForgotCode(e.target.value)}
-          disabled={loading}
-        />
-        <input
-          type="password"
-          className="w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm placeholder-white/50 mb-4"
-          placeholder="Enter new password"
-          value={forgotNewPassword}
-          onChange={(e) => setForgotNewPassword(e.target.value)}
-          disabled={loading}
-        />
-        <button
-          onClick={handleForgotPasswordConfirm}
-          disabled={loading}
-          className="bg-gradient-to-r from-purple-700 to-cyan-600 text-white text-sm font-medium py-2 px-6 rounded-3xl mb-2"
-        >
-          {loading ? "Resetting..." : "Reset Password"}
-        </button>
-        <button
-          onClick={() => setForgotStep("EMAIL")}
-          className="text-cyan-400 text-xs mt-2"
-        >
-          Back
-        </button>
-        {error && <div className="text-red-400 text-sm mt-2">{error}</div>}
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-[#f5fafd] to-[#eaf6f1]">
+        <div className="w-[400px] bg-white rounded-3xl shadow-xl px-10 py-10 flex flex-col gap-4">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">Reset Password</h2>
+          <input
+            type="text"
+            className="w-full bg-gray-100 border border-gray-200 rounded-full px-4 py-2 text-gray-800 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-300 mb-4"
+            placeholder="Enter code from email"
+            value={forgotCode}
+            onChange={(e) => setForgotCode(e.target.value)}
+            disabled={loading}
+          />
+          <input
+            type="password"
+            className="w-full bg-gray-100 border border-gray-200 rounded-full px-4 py-2 text-gray-800 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-300 mb-4"
+            placeholder="Enter new password"
+            value={forgotNewPassword}
+            onChange={(e) => setForgotNewPassword(e.target.value)}
+            disabled={loading}
+          />
+          <button
+            onClick={handleForgotPasswordConfirm}
+            disabled={loading}
+            className={`w-full py-2 rounded-full text-white font-semibold text-base shadow transition ${loading ? "bg-green-400 opacity-60 cursor-not-allowed" : "bg-green-600 hover:bg-green-700"}`}
+          >
+            {loading ? "Resetting..." : "Reset Password"}
+          </button>
+          <button
+            onClick={() => setForgotStep("EMAIL")}
+            className="text-green-600 text-xs mt-2 hover:underline"
+          >
+            Back
+          </button>
+          {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
+        </div>
       </div>
     );
   }
 
+  // Main Sign In UI
   return (
-    <div className="flex items-center gap-32">
-      <div className="flex flex-col items-center w-[25vw]">
-        <div className="flex items-center mb-2 w-full">
-          <div className="flex flex-col items-start mr-2">
-            <h1 className="text-white mb-[-0.8rem] font-extralight text-3xl pl-2.5 self-start">
-              Welcome to
-            </h1>
+    <div
+      className="relative min-h-screen w-full overflow-hidden flex items-center justify-center p-4"
+      style={{ fontFamily: 'TWK Lausanne, Inter, sans-serif' }}
+    >
+      {/* Background Image */}
+      <div
+        className="fixed top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat z-[1]"
+        style={{
+          backgroundImage: "url('/assets/auth/01-Dashboard.png')",
+        }}
+      />
+
+      {/* Content */}
+      <div className="relative z-[2] w-full max-w-6xl grid grid-cols-2 items-center">
+        {/* Left Side - Welcome Text and Logo */}
+        <div className="flex flex-col justify-center max-w-lg mr-[100px]">
+          <button
+            className="bg-white/80 hover:bg-white/90 rounded-full px-6 py-2 shadow-sm text-slate-700 font-medium mb-8 w-fit"
+            onClick={() => router.back()}
+          >
+            &larr; Back
+          </button>
+          <h1 className="text-4xl lg:text-5xl font-light text-slate-700 mb-4" style={{ fontFamily: 'TWK Lausanne, Inter, sans-serif' }}>
+            Welcome to
+          </h1>
+          <div className="flex items-center mb-6">
             <img
-              src="/valura-text.svg"
-              alt="Valura"
+              src="/assets/logo_1.svg"
+              alt="Valura.ai Logo"
               className="h-20 w-auto object-contain"
             />
           </div>
-          <img
-            src="/valura-logo.svg"
-            alt="Valura Logo"
-            className="h-24 mb-5 w-auto object-contain"
-          />
-        </div>
-        <p className="text-white/80 pl-4 text-sm text-left w-full -mt-2">
-          Log in to your account to access your personalized wealth management
-          dashboard.
-        </p>
-        <div className="mt-2 w-full pl-4">
-          <p className="text-white/80 text-sm mt-2 mb-4">
-            Don't have an account?
+          <p className="text-slate-600 text-lg max-w-md">
+            Sign in to your account to access your personalized wealth management dashboard.
           </p>
-          {mfaState.type !== "TOTP_SETUP" && (
-            <button
-              onClick={onSignUpClick}
-              className="bg-black/30 text-sm hover:bg-black/40 text-white px-6 py-2 rounded-3xl transition-all duration-200 border border-white/20"
-            >
-              Sign Up
-            </button>
-          )}
         </div>
-      </div>
 
-      {/* White Rectangle with Login Form */}
-      <div className="bg-black/20 backdrop-blur-sm w-[28vw] h-auto min-h-[200px] py-9 px-9 rounded-2xl shadow-lg flex flex-col justify-center border border-white/20">
-        {mfaState.type ? (
-          renderMFAForm()
-        ) : (
-          <>
-            {/* Email Input */}
-            <div className="mb-4">
-              <input
-                type="email"
-                id="email"
-                className="w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                placeholder="Email Address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={loading}
-              />
+        {/* Right Side (Sign In Card) */}
+        <div className="bg-white rounded-3xl shadow-2xl p-10 flex flex-col gap-4 w-full max-w-md">
+          <div className="flex justify-between items-center mb-2">
+            <div>
+              <span className="text-slate-600 text-sm">Welcome to </span>
+              <span className="text-emerald-600 font-semibold">Valura.AI</span>
+              <h1 className="text-3xl font-bold text-slate-800 mt-1">Sign In</h1>
             </div>
-
-            {/* Password Input */}
-            <div className="mb-6 relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                className="w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-500 pr-16"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                disabled={loading}
-              />
+            <div className="text-right mt-6">
+              <div className="text-slate-500 text-sm">Don't have an Account?</div>
               <button
-                type="button"
-                onClick={() => setShowPassword((prev) => !prev)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-gradient-to-r from-purple-700 to-cyan-600 text-white font-semibold text-xs focus:outline-none px-3 py-1 rounded-lg shadow"
-                tabIndex={-1}
+                onClick={onSignUpClick}
+                className="text-emerald-600 text-sm font-semibold hover:underline"
               >
-                {showPassword ? "Hide" : "Show"}
+                Sign up
               </button>
             </div>
+          </div>
 
-            {/* Remember me and Forget Password */}
-            <div className="flex justify-between items-center mb-6">
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  id="remember"
-                  className="h-4 w-4 bg-white/10 border-white/30 rounded focus:ring-blue-500 mr-2"
-                  checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
-                  disabled={loading}
-                />
-                <label
-                  htmlFor="remember"
-                  className="text-white text-sm font-light"
-                >
-                  Remember me
-                </label>
-              </div>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setForgotStep("EMAIL");
-                  setError(null);
-                }}
-                className="text-sm bg-gradient-to-r from-emerald-500 to-yellow-400 bg-clip-text text-transparent"
-              >
-                Forgot password?
-              </a>
-            </div>
-
-            {error && (
-              <div className="mb-4 text-red-400 text-sm font-medium">
-                {error}
-              </div>
-            )}
-
-            {/* Sign In Button */}
-            <button
-              onClick={handleSubmit}
+          {/* Email Input */}
+          <div>
+            <label htmlFor="email" className="block text-slate-700 text-sm font-medium mb-2">
+              Enter your email address
+            </label>
+            <input
+              type="email"
+              id="email"
+              className="w-full h-12 px-4 rounded-full border border-slate-200 focus:border-green-600 transition-all duration-200 text-slate-800 text-sm placeholder-gray-400 focus:outline-none"
+              placeholder="Username or email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               disabled={loading}
-              className={`${
-                loading ? "opacity-50 cursor-not-allowed" : ""
-              } bg-gradient-to-r from-purple-700 to-cyan-600 text-white text-sm font-medium py-2 rounded-3xl transition-all duration-300`}
+            />
+          </div>
+
+          {/* Password Input */}
+          <div>
+            <label htmlFor="password" className="block text-slate-700 text-sm font-medium mb-2">
+              Enter your Password
+            </label>
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              className="w-full h-12 px-4 rounded-full border border-slate-200 focus:border-green-600 transition-all duration-200 text-slate-800 text-sm placeholder-gray-400 focus:outline-none"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={loading}
+            />
+          </div>
+
+          {/* Remember me and Forgot Password */}
+          <div className="flex justify-between items-center mt-2 mb-2">
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="remember"
+                className="h-4 w-4 rounded border-gray-300 mr-2"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+                disabled={loading}
+              />
+              <label htmlFor="remember" className="text-slate-600 text-sm">
+                Remember me
+              </label>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                setForgotStep("EMAIL");
+                setError(null);
+              }}
+              className="text-emerald-600 text-sm font-medium hover:underline"
             >
-              {loading ? "Signing In..." : "Sign In"}
+              Forgot Password
             </button>
-          </>
-        )}
+          </div>
+
+          {/* Error Message */}
+          {error && (
+            <div className="mb-2 text-red-500 text-sm font-medium">{error}</div>
+          )}
+
+          {/* Sign In Button */}
+          <button
+            onClick={handleSubmit}
+            disabled={loading}
+            className={`w-full mt-2 py-3 rounded-full text-white font-semibold text-lg shadow transition ${
+              loading
+                ? "bg-green-400 opacity-60 cursor-not-allowed"
+                : "bg-emerald-600 hover:bg-emerald-700"
+            }`}
+          >
+            {loading ? "Signing In..." : "Sign in"}
+          </button>
+        </div>
       </div>
     </div>
   );
