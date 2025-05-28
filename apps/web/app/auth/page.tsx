@@ -1,7 +1,6 @@
 "use client"; // Important: Convert to client component
 
 import React, { Suspense, useState, useEffect } from "react";
-import { Navbar } from "../components/Navbar";
 import { SignInBox } from "../components/SignInBox";
 import { SignUpBox } from "../components/SignUpBox";
 import { useSearchParams } from "next/navigation";
@@ -44,11 +43,11 @@ function AuthContent() {
       <div
         className="fixed top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat z-[1]"
         style={{
-          backgroundImage: "url('/assets/auth/background-auth.png')",
+          backgroundImage: "url('/assets/auth/01-Dashboard.png')",
         }}
       />
 
-      <Navbar />
+
 
       {/* Error notification */}
       {error && (

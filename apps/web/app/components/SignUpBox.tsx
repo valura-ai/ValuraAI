@@ -1,10 +1,12 @@
 "use client";
-
-import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { handleSignUp } from "../lib/cognito-actions"; 
-import { getErrorMessage } from "../utils/get-error-message"; 
+import { handleSignUp } from "../lib/cognito-actions";
+import { getErrorMessage } from "../utils/get-error-message";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Checkbox } from "../components/ui/checkbox";
 
 interface SignUpBoxProps {
   onSignInClick: () => void;
@@ -20,10 +22,11 @@ export const SignUpBox = ({ onSignInClick }: SignUpBoxProps) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
   const router = useRouter();
 
-  async function onSubmit() {
+  async function handleSubmit() {
     if (!firstName || !lastName || !email || !isUAECitizen) {
       alert("Please fill out all fields.");
       return;
@@ -38,7 +41,7 @@ export const SignUpBox = ({ onSignInClick }: SignUpBoxProps) => {
       formData.append("password", password);
 
       const errorMessage = await handleSignUp(formData);
-      
+
       if (errorMessage) {
         setError(errorMessage);
       } else {
@@ -52,132 +55,130 @@ export const SignUpBox = ({ onSignInClick }: SignUpBoxProps) => {
   }
 
   return (
-    <div className="flex items-center gap-32">
-      {/* Left Panel */}
-      <div className="flex flex-col items-center w-[25vw]">
-        <div className="flex items-center mb-2 w-full">
-          <div className="flex flex-col items-start mr-2">
-            <h1 className="text-white mb-[-0.8rem] font-extralight text-3xl pl-2.5 self-start">
+    <div className="min-h-screen flex items-center justify-center p-4">
+      {/* Back Button */}
+
+      <div className="w-full max-w-6xl grid grid-cols-2">
+        {/* Left Side - Welcome Text */}
+        <div className="flex-1 max-w-lg  mr-[100px]">
+          <div className="mb-[120px]">
+            {/* Back Button */}
+            <Button
+              variant="ghost"
+              className="bg-white/80 hover:bg-white/90 rounded-full px-6 py-2 shadow-sm"
+            >
+              Back
+            </Button>
+          </div>
+          <div className="text-center lg:text-left">
+            <h1 className="text-4xl lg:text-5xl font-light text-slate-700 mb-4">
               Welcome to
             </h1>
-            <img src="/valura-text.svg" alt="Valura" className="h-20" />
+            {/* Logo Image */}
+            <div className="flex justify-center lg:justify-start mb-6">
+              <Image
+                src="/assets/logo_1.svg"
+                alt="Logo"
+                width={306.53}
+                height={102.9}
+              />
+            </div>
+            <p className="text-slate-600 text-lg max-w-md mx-auto lg:mx-0">
+              Sign in to your account to access your personalized wealth
+              management dashboard.
+            </p>
           </div>
-          <img src="/valura-logo.svg" alt="Valura Logo" className="h-24 mb-5" />
-        </div>
-        <p className="text-white/80 pl-4 text-sm text-left w-full -mt-2">
-          Create your account to access your personalized wealth management dashboard.
-        </p>
-        <div className="mt-2 w-full pl-4">
-          <p className="text-white/80 text-sm mt-2 mb-4">
-            Already have an account?
-          </p>
-          <button
-            onClick={onSignInClick}
-            className="bg-black/30 text-sm hover:bg-black/40 text-white px-6 py-2 rounded-3xl border border-white/20"
-          >
-            Sign In
-          </button>
-        </div>
-      </div>
-
-      {/* Sign Up Form */}
-      <div className="bg-black/20 backdrop-blur-sm w-[28vw] py-9 px-9 rounded-2xl shadow-lg border border-white/20">
-        <div className="mb-4">
-          <input
-            type="text"
-            className="w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-500"
-            placeholder="First Name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            disabled={loading}
-          />
-        </div>
-        <div className="mb-4">
-          <input
-            type="text"
-            className="w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-500"
-            placeholder="Last Name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            disabled={loading}
-          />
-        </div>
-        <div className="mb-4">
-          <input
-            type="email"
-            className="w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-500"
-            placeholder="Email Address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            disabled={loading}
-          />
-        </div>
-        {/* <div className="mb-4">
-          <input
-            type="text"
-            className="w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-500"
-            placeholder="Enter Mobile Number"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            disabled={loading}
-          />
-        </div> */}
-        <div className="mb-4 relative">
-          <input
-            type={showPassword ? "text" : "password"}
-            className="w-full bg-white/13 border border-white/30 rounded-3xl px-4 py-2 text-white text-sm placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-500 pr-16"
-            placeholder="Enter Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            disabled={loading}
-          />
-          <button
-            type="button"
-            onClick={() => setShowPassword((prev) => !prev)}
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-gradient-to-r from-purple-700 to-cyan-600 text-white font-semibold text-xs focus:outline-none px-3 py-1 rounded-lg shadow"
-            tabIndex={-1}
-          >
-            {showPassword ? "Hide" : "Show"}
-          </button>
         </div>
 
-        {/* UAE Citizen */}
-        <div className="mb-6 flex items-center justify-between">
-          <p className="text-white text-sm">Are you a UAE citizen?</p>
-          <div className="flex gap-2">
-            {["yes", "no"].map((option) => (
-              <button
-                key={option}
-                type="button"
-                onClick={() => setIsUAECitizen(option as "yes" | "no")}
-                className={`px-4 py-1 rounded-3xl text-sm ${
-                  isUAECitizen === option
-                    ? "bg-gradient-to-r from-green-500 to-yellow-400 text-black"
-                    : "bg-white/10 text-white"
-                }`}
-                disabled={loading}
+        {/* Right Side - Sign Up Form */}
+        <div className="w-full max-w-md">
+          <div className="bg-white rounded-3xl shadow-2xl p-8">
+            {/* Header */}
+            <div className="text-center mb-8">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <span className="text-slate-600 text-sm">Welcome to </span>
+                  <span className="text-emerald-600 font-semibold">
+                    Valura.AI
+                  </span>
+                </div>
+                <div className="text-right mt-6">
+                  <div className="text-slate-500 text-sm">
+                    Have an Account ?
+                  </div>
+                  <button className="text-emerald-600 text-sm font-semibold hover:underline">
+                    Log in
+                  </button>
+                </div>
+              </div>
+              <h2 className="text-[54.21px] font-bold text-slate-800 text-left">
+                Sign up
+              </h2>
+            </div>
+
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label className="block text-slate-700 text-sm font-medium mb-2">
+                  Enter your username or email address
+                </label>
+                <Input
+                  type="email"
+                  placeholder="Username or email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full h-12 px-4 rounded-full border border-slate-200 focus:border-green-600 transition-all duration-200"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-slate-700 text-sm font-medium mb-2">
+                  Enter your Password
+                </label>
+                <Input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full h-12 px-4 rounded-full border border-slate-200 focus:border-green-600 transition-all duration-200"
+                  required
+                />
+              </div>
+
+              {/* Remember Me & Forgot Password */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="remember"
+                    checked={rememberMe}
+                    onCheckedChange={(checked) =>
+                      setRememberMe(checked as boolean)
+                    }
+                    className="rounded-full bg-gray-400"
+                  />
+                  <label htmlFor="remember" className="text-sm text-slate-600">
+                    Remember me
+                  </label>
+                </div>
+                <button
+                  type="button"
+                  className="text-emerald-600 text-sm font-semibold hover:underline"
+                >
+                  Forgot Password
+                </button>
+              </div>
+
+              {/* Sign In Button */}
+              <Button
+                type="submit"
+                className="w-full h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-full transition-all duration-200 shadow-lg hover:shadow-xl"
               >
-                {option.charAt(0).toUpperCase() + option.slice(1)}
-              </button>
-            ))}
+                Sign In
+              </Button>
+            </form>
           </div>
         </div>
-
-        {/* Error message */}
-        {error && (
-          <div className="mb-4 text-red-400 text-sm font-medium">{error}</div>
-        )}
-
-        {/* Submit Button */}
-        <button
-          onClick={onSubmit}
-          disabled={loading}
-          className={`${
-            loading ? "opacity-50 cursor-not-allowed" : ""
-          } bg-gradient-to-r from-purple-700 to-cyan-600 text-white text-sm font-medium py-2 rounded-3xl transition-all duration-300 w-full`}
-        >
-          {loading ? "Signing Up..." : "Sign Up"}
-        </button>
       </div>
     </div>
   );
