@@ -4,7 +4,7 @@ import { useState } from "react";
 import CitizenshipForm from "./components/CitizenshipForm";
 import AddressPage from "./components/AddressPage";
 import IdentityVerification from "./components/IdentityVerification";
-import BackgroundSvg from "./components/BackgroundGradient";
+// import BackgroundSvg from "./components/BackgroundGradient";
 import BirthdayPage from "./components/BirthdayPage";
 import EmiratesPage from "./components/EmiratesidPage";
 import { SourceOfFundsForm } from "./components/SourceOfFunds";
