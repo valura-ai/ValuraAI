@@ -40,7 +40,7 @@ model FinancialInstrument {
 }
 
 model Watchlist {
-  watchlistId String   @id @map("watchlist_id")
+  watchlistId String   @id @default(cuid()) @map("watchlist_id")
   userId      String   @map("user_id")
   symbol      String   @map("symbol")
   addedAt     DateTime @map("added_at")
