@@ -29,19 +29,19 @@ export function BirthdayForm({ onProceed }: BirthdayFormProps) {
           type="text"
           placeholder="DD"
           maxLength={2}
-          className={`${inputClass} w-20`} // Increased from w-16
+          className={`${inputClass} w-28`} // Increased from w-16
         />
         <input
           type="text"
           placeholder="MM"
           maxLength={2}
-          className={`${inputClass} w-20`} // Increased from w-16
+          className={`${inputClass} w-28`} // Increased from w-16
         />
         <input
           type="text"
           placeholder="YYYY"
           maxLength={4}
-          className={`${inputClass} w-32`} // Increased from w-24
+          className={`${inputClass} w-35`} // Increased from w-24
         />
       </div>
 

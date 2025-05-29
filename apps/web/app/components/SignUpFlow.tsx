@@ -3,7 +3,6 @@ import { SignUpBoxName } from "./SignUpBoxName";
 import { SignUpBox } from "./SignUpBox";
 import { EmailVerification } from "./EmailVerification";
 import { WelcomeSection } from "./shared/WelcomeSection";
-import { useRouter } from "next/navigation";
 
 type SignUpStep = "name" | "credentials" | "verification";
 
@@ -15,8 +14,7 @@ export const SignUpFlow = ({ onSignInClick }: SignUpFlowProps) => {
   const [currentStep, setCurrentStep] = useState<SignUpStep>("name");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const router = useRouter();
+  const [email, setEmail] = useState("");      
 
   const handleNameSubmit = (firstName: string, lastName: string) => {
     setFirstName(firstName);

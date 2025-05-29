@@ -9,8 +9,10 @@ import BirthdayPage from "./components/BirthdayPage";
 import EmiratesPage from "./components/EmiratesidPage";
 import { SourceOfFundsForm } from "./components/SourceOfFunds";
 import AccreditationForm from "./components/AccreditationForm";
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
+  const router = useRouter();
   const [step, setStep] = useState(1);
 
   const handleBack = () => {
@@ -24,7 +26,7 @@ export default function Home() {
     <div>
       <div className="relative z-10">
         {step === 1 && (
-          <CitizenshipForm onBack={handleBack} onProceed={handleProceed} />
+          <CitizenshipForm onBack={()=>{router.push('/dashboard')}} onProceed={handleProceed} />
         )}
         {step === 2 && (
           <AddressPage onBack={handleBack} onProceed={handleProceed} />

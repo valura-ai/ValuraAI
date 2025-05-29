@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import {
   signUp,
   confirmSignUp,
@@ -7,7 +6,7 @@ import {
   resendSignUpCode,
   confirmSignIn,
   resetPassword,
-  confirmResetPassword
+  confirmResetPassword,
 } from "aws-amplify/auth";
 import { getErrorMessage } from "../utils/get-error-message";
 
@@ -69,8 +68,7 @@ export async function handleConfirmSignUp(
       confirmationCode: String(formData.get("code")),
     });
 
-    return "/auth"; 
-    
+    return "/auth";
   } catch (error) {
     return getErrorMessage(error);
   }
@@ -92,13 +90,13 @@ export async function handleSignIn(
 
     if (nextStep.signInStep === "CONTINUE_SIGN_IN_WITH_TOTP_SETUP") {
       const otpAuthUrl = `otpauth://totp/AWSCognito:${username}?secret=${nextStep.totpSetupDetails.sharedSecret}&issuer=Cognito`;
-      return { 
-        type: "TOTP_SETUP", 
+      return {
+        type: "TOTP_SETUP",
         data: {
           otpAuthUrl,
           email: username,
           sharedSecret: nextStep.totpSetupDetails.sharedSecret,
-        }
+        },
       };
     }
 
@@ -112,7 +110,7 @@ export async function handleSignIn(
 
     if (isSignedIn) {
       console.log("Sign in completed successfully");
-      return "/dash";
+      return "/dashboard";
     }
 
     throw new Error(`Sign in failed: ${nextStep.signInStep}`);
@@ -120,7 +118,7 @@ export async function handleSignIn(
     console.error("Detailed sign in error:", {
       error,
       message: error instanceof Error ? error.message : "Unknown error",
-      stack: error instanceof Error ? error.stack : undefined
+      stack: error instanceof Error ? error.stack : undefined,
     });
     return getErrorMessage(error);
   }
@@ -131,16 +129,17 @@ export async function handleVerifyTOTPSetup(
 ): Promise<string | null> {
   try {
     const code = String(formData.get("code"));
-    const { isSignedIn, nextStep } = await confirmSignIn({ 
-      challengeResponse: code 
+    const { isSignedIn, nextStep } = await confirmSignIn({
+      challengeResponse: code,
     });
-    
+
     if (isSignedIn) {
-      return "/dash";
+      return "/dashboard";
     } else {
-      throw new Error(`Unexpected state after TOTP setup: ${nextStep.signInStep}`);
+      throw new Error(
+        `Unexpected state after TOTP setup: ${nextStep.signInStep}`
+      );
     }
-    
   } catch (error) {
     console.error("TOTP setup verification error:", error);
     return getErrorMessage(error);
@@ -152,12 +151,12 @@ export async function handleConfirmTOTP(
 ): Promise<string | null> {
   try {
     const code = String(formData.get("code"));
-    const { isSignedIn, nextStep } = await confirmSignIn({ 
-      challengeResponse: code 
+    const { isSignedIn, nextStep } = await confirmSignIn({
+      challengeResponse: code,
     });
-    
+
     if (isSignedIn) {
-      return "/dash";
+      return "/dashboard";
     } else {
       throw new Error(`TOTP confirmation failed: ${nextStep.signInStep}`);
     }
@@ -181,15 +180,29 @@ export async function handleForgotPassword(email: string) {
     await resetPassword({ username: email });
     return null;
   } catch (error) {
-    return (error instanceof Error ? error.message : String(error)) || "Failed to send reset code.";
+    return (
+      (error instanceof Error ? error.message : String(error)) ||
+      "Failed to send reset code."
+    );
   }
 }
 
-export async function handleConfirmForgotPassword(email: string, code: string, newPassword: string) {
+export async function handleConfirmForgotPassword(
+  email: string,
+  code: string,
+  newPassword: string
+) {
   try {
-    await confirmResetPassword({ username: email, confirmationCode: code, newPassword });
+    await confirmResetPassword({
+      username: email,
+      confirmationCode: code,
+      newPassword,
+    });
     return null;
   } catch (error) {
-    return (error instanceof Error ? error.message : String(error)) || "Failed to reset password.";
+    return (
+      (error instanceof Error ? error.message : String(error)) ||
+      "Failed to reset password."
+    );
   }
 }

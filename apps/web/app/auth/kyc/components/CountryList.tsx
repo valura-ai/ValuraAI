@@ -33,12 +33,12 @@ export const CountryList: React.FC<CountryListProps> = ({
   };
 
   return (
-    <section className="flex overflow-hidden gap-4 px-4 pt-5 text-xl leading-none rounded-[40px] text-slate-950">
-      <div className="grow shrink-0 basis-0 w-full bg-gray-100 border border-white rounded-3xl">
+    <section className="flex overflow-hidden gap-4 px-4 pt-5 text-xl leading-none rounded-[40px] text-slate-950 min-h-[420px] h-[420px] bg-[#FFFFFC]/90">
+      <div className="grow shrink-0 basis-0 w-full bg-gray-100 border border-white rounded-3xl min-h-[400px] h-[400px] flex flex-col">
         <CountrySearch onSearch={handleSearch} />
 
-        <div className="mt-6 max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent pr-2">
-          <ul className="space-y-4 flex flex-col items-center">
+        <div className="mt-6 max-h-[300px] h-[220px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent pr-2 flex-1">
+          <ul className="space-y-4 flex flex-col items-center min-h-[200px] h-full">
             {filteredCountries.map((country) => (
               <CountryItem
                 key={country.id}

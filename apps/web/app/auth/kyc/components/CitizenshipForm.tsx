@@ -34,10 +34,10 @@ export const CitizenshipForm: React.FC<CitizenshipFormProps> = ({ onBack, onProc
 
   return (
     <div className="flex justify-center items-center min-h-screen p-4">
-      <main className="bg-[#FFFFFC] shadow-xl rounded-[40px] px-14 py-12 w-full max-w-6xl backdrop-blur-[17.247573852539062px] max-md:px-6">
-        <div className="flex gap-5 max-md:flex-col">
+      <main className="bg-[#FFFFFC]/90 shadow-xl rounded-[40px] px-14 py-12 w-full max-w-6xl backdrop-blur-[17.247573852539062px] max-md:px-6">
+        <div className="bg-[#FFFFFC]/90 flex gap-5 max-md:flex-col">
           <section className="w-[55%] max-md:w-full">
-            <div className="flex flex-col w-full text-base font-bold leading-6 text-slate-950 max-md:mt-6">
+            <div className="bg-[#FFFFFC]/90 flex flex-col w-full text-base font-bold leading-6 text-slate-950 max-md:mt-6">
               <BackButton onClick={handleBackClick} />
 
               <header className="mt-20 max-md:mt-10">
@@ -64,8 +64,8 @@ export const CitizenshipForm: React.FC<CitizenshipFormProps> = ({ onBack, onProc
             </div>
           </section>
 
-          <aside className="w-[45%] max-md:w-full">
-            <div className="mt-1.5 max-md:mt-10">
+          <aside className="w-[45%] max-md:w-full flex flex-col min-h-[420px] justify-between">
+            <div className="mt-1.5 max-md:mt-10 flex-1 flex flex-col justify-between">
               <CountryList
                 onCountrySelect={handleCountrySelect}
                 selectedCountryId={selectedCountry?.id || 'uae'}
