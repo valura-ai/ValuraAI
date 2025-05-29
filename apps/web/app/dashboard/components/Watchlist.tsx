@@ -50,7 +50,6 @@ function MiniChart({ positive }: { positive: boolean }) {
     </svg>
   )
 }
-
 export function Watchlist() {
   return (
     <Card className="w-full rounded-2xl shadow-lg flex flex-col min-h-0 max-h-[360px]">
@@ -69,31 +68,42 @@ export function Watchlist() {
       <CardContent className="p-0 overflow-auto flex-grow min-h-0">
         <div className="divide-y divide-gray-200/40">
           {watchlistData.map((stock, i) => (
-            <div key={i} className="flex items-center justify-between px-4 py-3">
-              <div className="flex items-center gap-4">
-                <div
-                  className={`${stock.color} w-10 h-10 rounded-full flex items-center justify-center`}
-                >
-                  <span className="text-white font-bold text-lg">
-                    {stock.symbol === "GOOG" ? "N" : stock.symbol.charAt(0)}
-                  </span>
+            <button
+              key={i}
+              className="w-full text-left transition-all hover:bg-gray-50 active:bg-gray-100 hover:shadow-sm"
+              onClick={() => {
+                // Handle click event
+                console.log(`Clicked ${stock.symbol}`)
+              }}
+            >
+              <div className="flex items-center justify-between px-4 py-3">
+                <div className="flex items-center gap-4">
+                  <div
+                    className={`${stock.color} w-10 h-10 rounded-full flex items-center justify-center`}
+                  >
+                    <span className="text-white font-bold text-lg">
+                      {stock.symbol === "GOOG" ? "N" : stock.symbol.charAt(0)}
+                    </span>
+                  </div>
+                  <div>
+                    <div className="text-black font-semibold text-sm">{stock.symbol}</div>
+                    <div className="text-black text-xs opacity-40">{stock.name}</div>
+                  </div>
                 </div>
-                <div>
-                  <div className="text-black font-semibold text-sm">{stock.symbol}</div>
-                  <div className="text-black text-xs opacity-40">{stock.name}</div>
-                </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <MiniChart positive={stock.positive} />
-                <div className="text-right min-w-[80px]">
-                  <div className="text-black font-semibold text-sm">{stock.price}</div>
-                  <div className={`flex items-center justify-end gap-1 text-sm font-medium ${stock.positive ? "text-[#05A049]" : "text-[#EF4444]"}`}>
-                    {stock.positive ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />}
-                    {stock.changePercent}
+                <div className="flex items-center gap-4">
+                  <MiniChart positive={stock.positive} />
+                  <div className="text-right min-w-[80px]">
+                    <div className="text-black font-semibold text-sm">{stock.price}</div>
+                    <div className={`flex items-center justify-end gap-1 text-sm font-medium ${
+                      stock.positive ? "text-[#05A049]" : "text-[#EF4444]"
+                    }`}>
+                      {stock.positive ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />}
+                      {stock.changePercent}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </CardContent>

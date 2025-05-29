@@ -16,21 +16,22 @@ export default function DashboardPage() {
       <main className="flex-1 p-4 sm:p-6 lg:p-8 flex flex-col overflow-hidden">
         {/* Top header */}
         <section className="max-w-3xl mb-6 flex-shrink-0">
-          <h1 className="text-lg sm:text-xl font-semibold" style={{ color: "#00111B" }}>
-            Welcome to your modern wealth platform, Priyesh!
-          </h1>
-          <p className="mt-1 text-sm text-gray-600 max-w-md">
-            Explore all that Arta has to offer, and start building your digital family office.
-          </p>
-                              <Button
-            className="mt-3 rounded-full px-4 py-2 inline-flex items-center gap-2 text-[#00111B] transition-all duration-300 hover:scale-105 hover:bg-gray-100"
-            style={{ backgroundColor: "#FFFFFC" }}
-            size="sm"
-          >
-            Explore 
-            <ArrowRight className="w-4 h-4 rotate-[-45deg]" />
-          </Button>
-        </section>
+  <h1 className="text-lg sm:text-xl lg:text-2xl font-semibold" style={{ color: "#00111B" }}>
+    Welcome to your modern wealth platform, Priyesh!
+  </h1>
+  <p className="text-sm text-[#00111B] mt-2">
+    Explore all that Valura has to offer, and start building your digital family office.
+  </p>
+  <Button
+    className="rounded-full px-4 py-2 mt-3 inline-flex items-center gap-2 text-[#00111B] transition-all duration-300 hover:scale-105 hover:bg-gray-100 whitespace-nowrap"
+    style={{ backgroundColor: "#FFFFFC" }}
+    size="sm"
+  >
+    Explore 
+    <ArrowRight className="w-4 h-4 rotate-[-45deg]" />
+  </Button>
+</section>
+
         {/* Main content area */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8 flex-grow overflow-hidden">
           {/* Left: Calendar */}

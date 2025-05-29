@@ -58,18 +58,18 @@ export default function Sidebar() {
       style={{ minWidth: collapsedWidth, maxWidth: expandedWidth }}
     >
       {/* Header */}
-      <div className="flex items-center justify-center px-2 sm:px-3 py-2 sm:py-2.5 border-b border-gray-200/30 flex-shrink-0">
+      <div className={`flex ${isCollapsed ? 'justify-center' : 'justify-start'} items-center px-2 sm:px-3 py-2 sm:py-2.5 border-b border-gray-200/30 flex-shrink-0 transition-all duration-200`}>
         <button
           aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           onClick={() => setIsCollapsed((v) => !v)}
-          className="bg-white shadow rounded-full p-1 sm:p-1.5 hover:bg-gray-100 transition-colors"
+          className="bg-white shadow-[0_2px_8px_rgba(0,0,0,0.12)] rounded-full p-1.5 sm:p-2 transition-all hover:shadow-[0_4px_12px_rgba(0,0,0,0.16)] active:shadow-[0_2px_4px_rgba(0,0,0,0.08)]"
           tabIndex={0}
           type="button"
         >
           {isCollapsed ? (
-            <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600" />
+            <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black" />
           ) : (
-            <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600" />
+            <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black" />
           )}
         </button>
       </div>
@@ -91,27 +91,27 @@ export default function Sidebar() {
                   {section.section}
                 </h3>
               )}
-              <div className="flex flex-col space-y-0.5 sm:space-y-1">
-                {section.items.map((item, iidx) => {
-                  const isActive = activeItem === item.label
-                  return (
-                    <button
-                      key={iidx}
-                      onClick={() => setActiveItem(item.label)}
-                      title={isCollapsed ? item.label : undefined}
-                      className={`flex items-center gap-2 sm:gap-3 rounded-lg transition-colors duration-200 w-full py-1 sm:py-1.5
-                        ${isActive ? 'bg-green-600 text-white shadow-md' : 'text-gray-700 hover:bg-gray-100'}
-                        ${isCollapsed ? 'justify-center' : 'px-2.5 sm:px-3'}`}
-                      style={
-                        isActive
-                          ? {
-                              backgroundColor: '#05A049',
-                              boxShadow: '0 2px 4px rgb(5 160 73 / 0.25)'
-                            }
-                          : undefined
-                      }
-                      type="button"
-                    >
+              <div className="flex flex-col space-y-0.5 sm:space-y-1 px-2">
+  {section.items.map((item, iidx) => {
+    const isActive = activeItem === item.label
+    return (
+      <button
+        key={iidx}
+        onClick={() => setActiveItem(item.label)}
+        title={isCollapsed ? item.label : undefined}
+        className={`flex items-center gap-2 sm:gap-3 rounded-lg transition-colors duration-200 w-full py-1 sm:py-1.5
+          ${isActive ? 'bg-green-600 text-white shadow-md' : 'text-gray-700 hover:bg-gray-100'}
+          ${isCollapsed ? 'justify-center' : 'px-2.5 sm:px-3'}`}
+        style={
+          isActive
+            ? {
+                backgroundColor: '#05A049',
+                boxShadow: '0 2px 4px rgb(5 160 73 / 0.25)'
+              }
+            : undefined
+        }
+        type="button"
+      >
                       <item.icon
                         className={isActive ? 'text-white' : 'text-gray-600'}
                         size={isCollapsed ? 16 : 16}

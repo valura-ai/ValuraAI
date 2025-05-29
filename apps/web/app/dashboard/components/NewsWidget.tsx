@@ -29,23 +29,29 @@ export function NewsWidget() {
           </div>
           
           {/* Headline */}
-          <h3 className="font-semibold text-base leading-tight text-gray-900 mb-2">
+          <h3 className="font-medium text-base leading-tight text-[#000000] mb-2">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh Lorem ipsum dolor sit amet, consectetur
           </h3>
           
           {/* Description */}
-          <p className="text-sm text-gray-600 leading-relaxed line-clamp-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam...
+          <p className="text-sm text-[#8A8A8F] leading-relaxed line-clamp-4">
+            Lorem ipsum dolor sit amet, consectetuer  adipiscing elit, sed diam nonummy nibh Lorem ipsum dolor sit amet, consectetuer  adipiscing elit, sed diam nonummy nibh Lorem ipsum dolor sit amet, consectetuer  adipiscing elit, sed diam nonummy nibh Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam...
           </p>
           
           {/* Navigation Controls */}
           <div className="flex items-center justify-end pt-3">
-            <div className="flex items-center gap-1">
-              <button className="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors">
-                <ChevronLeft className="w-4 h-4 text-gray-600" />
+            <div className="flex items-center gap-4">
+              <button 
+                className="w-8 h-8 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.12)] rounded-full flex items-center justify-center transition-all hover:shadow-[0_4px_12px_rgba(0,0,0,0.16)] active:shadow-[0_2px_4px_rgba(0,0,0,0.08)]"
+                aria-label="Previous news"
+              >
+                <ChevronLeft className="w-4 h-4 text-black" />
               </button>
-              <button className="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors">
-                <ChevronRight className="w-4 h-4 text-gray-600" />
+              <button 
+                className="w-8 h-8 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.12)] rounded-full flex items-center justify-center transition-all hover:shadow-[0_4px_12px_rgba(0,0,0,0.16)] active:shadow-[0_2px_4px_rgba(0,0,0,0.08)]"
+                aria-label="Next news"
+              >
+                <ChevronRight className="w-4 h-4 text-black" />
               </button>
             </div>
           </div>
