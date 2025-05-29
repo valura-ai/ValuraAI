@@ -9,8 +9,8 @@ import { ArrowRight } from "lucide-react"
 
 export default function DashboardPage() {
   return (
-    <div className="flex flex-col lg:flex-row h-screen bg-[url('/dashboard-bg.png')] bg-cover bg-no-repeat bg-center overflow-hidden">
-      <div className="lg:ml-4">
+    <div className="flex flex-col lg:flex-row h-screen bg-[url('/dashboard-bg.png')] bg-cover bg-no-repeat bg-center overflow-hidden p-4">
+      <div className="lg:mx-4">
         <Sidebar />
       </div>
       <main className="flex-1 p-4 sm:p-6 lg:p-8 flex flex-col overflow-hidden">
@@ -22,12 +22,13 @@ export default function DashboardPage() {
           <p className="mt-1 text-sm text-gray-600 max-w-md">
             Explore all that Arta has to offer, and start building your digital family office.
           </p>
-          <Button
-            className="mt-3 rounded-full px-4 py-2 inline-flex items-center gap-2 text-[#00111B]"
+                              <Button
+            className="mt-3 rounded-full px-4 py-2 inline-flex items-center gap-2 text-[#00111B] transition-all duration-300 hover:scale-105 hover:bg-gray-100"
             style={{ backgroundColor: "#FFFFFC" }}
             size="sm"
           >
-            Explore <ArrowRight className="w-4 h-4" />
+            Explore 
+            <ArrowRight className="w-4 h-4 rotate-[-45deg]" />
           </Button>
         </section>
         {/* Main content area */}
