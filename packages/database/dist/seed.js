@@ -5892,7 +5892,7 @@ var require_client = __commonJS({
           "value": "prisma-client-js"
         },
         "output": {
-          "value": "/home/prakhar/ValuraAI/packages/database/generated/client",
+          "value": "/Users/sudarshan/Documents/2CentsCapital/ValuraAI/packages/database/generated/client",
           "fromEnvVar": null
         },
         "config": {
@@ -5901,12 +5901,12 @@ var require_client = __commonJS({
         "binaryTargets": [
           {
             "fromEnvVar": null,
-            "value": "debian-openssl-3.0.x",
+            "value": "darwin-arm64",
             "native": true
           }
         ],
         "previewFeatures": [],
-        "sourceFilePath": "/home/prakhar/ValuraAI/packages/database/prisma/schema.prisma",
+        "sourceFilePath": "/Users/sudarshan/Documents/2CentsCapital/ValuraAI/packages/database/prisma/schema.prisma",
         "isCustomOutput": true
       },
       "relativeEnvPaths": {
@@ -5958,8 +5958,8 @@ var require_client = __commonJS({
     var PrismaClient2 = getPrismaClient2(config);
     exports2.PrismaClient = PrismaClient2;
     Object.assign(exports2, Prisma);
-    path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node");
-    path.join(process.cwd(), "generated/client/libquery_engine-debian-openssl-3.0.x.so.node");
+    path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
+    path.join(process.cwd(), "generated/client/libquery_engine-darwin-arm64.dylib.node");
     path.join(__dirname, "schema.prisma");
     path.join(process.cwd(), "generated/client/schema.prisma");
   }

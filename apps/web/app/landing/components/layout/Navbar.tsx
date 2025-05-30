@@ -42,17 +42,15 @@ const Navbar = () => {
           <div className="flex flex-shrink-0 gap-6">
             <Link
               href="/auth"
-              className="flex items-center border-1 gap-1 bg-white/25 border-white/50 rounded-full px-4 py-2"
+              className="flex items-center border-1 gap-1 bg-white/25 border-white/50 rounded-full px-4 py-2 text-white text-md font-medium transition-colors hover:bg-white/40"
             >
-              <button className="text-white text-md font-medium">Login</button>
+              Login
             </Link>
             <Link
               href="/auth"
-              className="flex items-center border-1 gap-1 bg-white border-white/50 rounded-full px-4 py-2"
+              className="flex items-center border-1 gap-1 bg-white border-white/50 rounded-full px-4 py-2 text-[#276588] text-md font-medium transition-colors hover:bg-white/80"
             >
-              <button className="text-[#276588] text-md font-medium">
-                Sign Up
-              </button>
+              Sign Up
             </Link>
           </div>
         </div>
