@@ -2,7 +2,8 @@
 import * as React from "react";
 import { BackButton } from "./BackButton";
 import { AddressForm } from "./AddressForm";
-import { CheckboxField } from "./CheckboxField";
+
+import { Checkbox } from "@web/components/ui/checkbox";
 
 interface AddressPageProps {
   onBack?: () => void;
@@ -38,30 +39,54 @@ export default function AddressPage({ onBack, onProceed }: AddressPageProps) {
                   </header>
 
                   <p className="mt-3 leading-6">
-                    Your legal address will be registered and require verification
-                    to open your investment account. <br />
+                    Your legal address will be registered and require
+                    verification to open your investment account. <br />
                     <br />
-                    You will be automatically enrolled in paperless statements but
-                    will receive a notice of account opening once your investment
-                    account is set up.
+                    You will be automatically enrolled in paperless statements
+                    but will receive a notice of account opening once your
+                    investment account is set up.
                   </p>
 
-                  <div className="mt-9">
-                    <CheckboxField
-                      id="mailing-address"
-                      label="This is my mailing address"
-                      checked={isMailingAddress}
-                      onChange={setIsMailingAddress}
-                      
-                    />
-
-                    <div className="mt-3">
-                      <CheckboxField
-                        id="lived-two-years"
-                        label="I have lived here for at least 2 years"
-                        checked={hasLivedTwoYears}
-                        onChange={setHasLivedTwoYears}
+                  <div className="mt-9 grid grid-cols-1 space-y-4">
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="mailing-address"
+                        checked={isMailingAddress}
+                        onCheckedChange={(checked) =>
+                          setIsMailingAddress(checked as boolean)
+                        }
+                        className={`rounded-full ${
+                          isMailingAddress
+                            ? "bg-green-600 border-green-600"
+                            : "bg-zinc-400"
+                        }`}
                       />
+                      <label
+                        htmlFor="mailing-address"
+                        className="text-sm text-slate-600"
+                      >
+                        This is my mailing address
+                      </label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="lived-two-years"
+                        checked={hasLivedTwoYears}
+                        onCheckedChange={(checked) =>
+                          setHasLivedTwoYears(checked as boolean)
+                        }
+                        className={`rounded-full ${
+                          hasLivedTwoYears
+                            ? "bg-green-600 border-green-600"
+                            : "bg-zinc-400"
+                        }`}
+                      />
+                      <label
+                        htmlFor="I have lived here for at least 2 years"
+                        className="text-sm text-slate-600"
+                      >
+                        I have lived here for at least 2 years
+                      </label>
                     </div>
                   </div>
 
