@@ -1,110 +1,120 @@
 import React from "react";
-import Link from "next/link";
+import Image from "next/image";
 
 const Footer = () => {
   return (
-    <div className="w-full bg-white pt-10">
-      <footer>
-        <div className="bg-[rgba(0,20,35,1)] mx-4 h-100 w-auto md:mx-8 rounded-[30px] px-6 md:px-12 py-10 relative">
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/ca7ec7c7d94147318bebe8b1c8ccdcac/13c02a8b9c351864968d59e98410297f01b9e5b1?placeholderIfAbsent=true"
-            alt="Footer Background"
-            className="absolute h-full w-full object-contain inset-0"
+    <div
+      className="absolute top-[250vh] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full z-10 h-[60vh]"
+      style={{
+        background: `linear-gradient(102deg, rgba(0, 98, 155, 0.90) -1.57%, rgba(5, 160, 73, 0.60) 106.36%)`,
+      }}
+    >
+      <div className="flex absolute justify-between h-auto w-[80%] top-[10%] ml-[10%] mr-[10%]">
+        <div>
+          <Image
+            src="/valura.png"
+            alt="Valura Logo"
+            height={200}
+            width={200}
+            priority
+            className="w-auto h-auto"
           />
+          <h4 className="text-white text-sm font-light">
+            Copyright © 2020 Nexcent ltd.
+          </h4>
+          <h4 className="text-white text-sm font-light">All rights reserved</h4>
 
-          <div className="relative w-full overflow-hidden">
-            <div className="relative z-10 flex w-full items-stretch gap-5 flex-wrap justify-between">
-              {/* Left column */}
-              <div className="flex flex-col w-[493px] max-w-full">
-                <img
-                  src="https://cdn.builder.io/api/v1/image/assets/ca7ec7c7d94147318bebe8b1c8ccdcac/19bd1227cd2ac8f957b2ee976ede9b3ad553aece?placeholderIfAbsent=true"
-                  alt="Logo"
-                  className="aspect-[4.1] object-contain w-[353px] max-w-full"
+          <div>
+            <div className="flex gap-4 mt-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="44"
+                height="43"
+                viewBox="0 0 44 43"
+                fill="none"
+              >
+                <path
+                  opacity="0.1"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M0.75 21.5623C0.75 9.78026 10.3013 0.229004 22.0833 0.229004C33.8654 0.229004 43.4167 9.78026 43.4167 21.5623C43.4167 33.3444 33.8654 42.8957 22.0833 42.8957C10.3013 42.8957 0.75 33.3444 0.75 21.5623Z"
+                  fill="white"
                 />
-                <p className="text-md text-white font-normal mt-6">
-                  Your one-stop shop for the finance <br />
-                  you need to know.
-                </p>
-                <button className="bg-cyan-400 w-[152px] text-md text-[rgba(28,29,34,1)] font-bold leading-none mt-6 px-6 py-3 rounded-[81px]">
-                  Contact US
-                </button>
-              </div>
-
-              {/* Right columns */}
-              <div className="flex gap-8 text-[rgba(210,211,218,1)] font-medium flex-wrap">
-                {/* Products */}
-                <div className="min-w-[220px] w-[227px] pb-6 max-md:pb-4">
-                  <h3 className="text-[rgba(120,124,145,1)] text-base uppercase">
-                    Products
-                  </h3>
-                  <nav className="mt-5 space-y-5">
-                    <Link href="#" className="block text-md">
-                      For Entrepreneurs
-                    </Link>
-                    <Link href="#" className="block text-md">
-                      Partners
-                    </Link>
-                  </nav>
-                </div>
-
-                {/* Company */}
-                <div className="min-w-[220px] w-[231px] pb-6 max-md:pb-4">
-                  <h3 className="text-[rgba(120,124,145,1)] text-base uppercase">
-                    Company
-                  </h3>
-                  <nav className="mt-5 space-y-5 text-md">
-                    <Link href="#" className="block">
-                      About Us
-                    </Link>
-                    <Link href="#" className="block">
-                      Careers
-                    </Link>
-                    <Link href="#" className="block">
-                      Changelog
-                    </Link>
-                  </nav>
-                </div>
-
-                {/* Learn More */}
-                <div className="min-w-[220px] w-[222px] pb-6 max-md:pb-4">
-                  <h3 className="text-[rgba(120,124,145,1)] text-base uppercase">
-                    Learn More
-                  </h3>
-                  <nav className="mt-5 space-y-5">
-                    <Link href="#" className="block text-md">
-                      Blog
-                    </Link>
-                    <Link href="#" className="block text-md">
-                      FAQs
-                    </Link>
-                  </nav>
-                </div>
-              </div>
-            </div>
-
-            {/* Divider */}
-            <div className="relative border border-[rgba(46,48,56,1)] mt-8 h-px w-full" />
-
-            {/* Social Icons */}
-            <div className="relative flex items-center gap-4 mt-6">
-              <Link href="#" className="w-[33px]">
-                <img
-                  src="https://cdn.builder.io/api/v1/image/assets/ca7ec7c7d94147318bebe8b1c8ccdcac/403297eb060ac7c87472e997b1fc919a9b56e735?placeholderIfAbsent=true"
-                  alt="X"
-                  className="aspect-square w-[33px] object-contain"
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M22.0844 10.1843C18.9943 10.1843 18.6066 10.1978 17.3929 10.2531C16.1816 10.3085 15.3548 10.5003 14.6314 10.7817C13.8831 11.0723 13.2483 11.461 12.6159 12.0937C11.983 12.7261 11.5942 13.3609 11.3027 14.109C11.0206 14.8327 10.8286 15.6597 10.7741 16.8705C10.7198 18.0841 10.7056 18.4722 10.7056 21.5622C10.7056 24.6523 10.7193 25.0389 10.7743 26.2525C10.83 27.4638 11.0218 28.2906 11.3029 29.014C11.5937 29.7624 11.9825 30.3972 12.6151 31.0296C13.2473 31.6625 13.8821 32.0522 14.63 32.3428C15.3539 32.6241 16.1809 32.8159 17.392 32.8714C18.6056 32.9266 18.9932 32.9401 22.083 32.9401C25.1733 32.9401 25.5599 32.9266 26.7735 32.8714C27.9848 32.8159 28.8125 32.6241 29.5364 32.3428C30.2845 32.0522 30.9184 31.6625 31.5506 31.0296C32.1835 30.3972 32.5722 29.7624 32.8638 29.0143C33.1435 28.2906 33.3355 27.4636 33.3924 26.2528C33.4469 25.0391 33.4611 24.6523 33.4611 21.5622C33.4611 18.4722 33.4469 18.0844 33.3924 16.8707C33.3355 15.6595 33.1435 14.8327 32.8638 14.1092C32.5722 13.3609 32.1835 12.7261 31.5506 12.0937C30.9177 11.4608 30.2848 11.072 29.5357 10.7817C28.8104 10.5003 27.9831 10.3085 26.7719 10.2531C25.5582 10.1978 25.1718 10.1843 22.0808 10.1843H22.0844ZM21.0637 12.2347C21.3666 12.2342 21.7046 12.2347 22.0843 12.2347C25.1222 12.2347 25.4823 12.2456 26.682 12.3001C27.7913 12.3508 28.3934 12.5362 28.7945 12.6919C29.3254 12.8982 29.704 13.1447 30.102 13.5429C30.5002 13.9411 30.7467 14.3204 30.9534 14.8514C31.1092 15.252 31.2948 15.854 31.3452 16.9634C31.3998 18.1628 31.4116 18.5231 31.4116 21.5596C31.4116 24.5961 31.3998 24.9564 31.3452 26.1558C31.2945 27.2651 31.1092 27.8672 30.9534 28.2678C30.7472 28.7988 30.5002 29.1768 30.102 29.5748C29.7037 29.9731 29.3257 30.2196 28.7945 30.4258C28.3939 30.5823 27.7913 30.7671 26.682 30.8179C25.4825 30.8724 25.1222 30.8842 22.0843 30.8842C19.0462 30.8842 18.6861 30.8724 17.4867 30.8179C16.3774 30.7667 15.7753 30.5813 15.374 30.4256C14.843 30.2193 14.4638 29.9728 14.0655 29.5746C13.6673 29.1764 13.4208 28.7981 13.2141 28.2669C13.0584 27.8663 12.8728 27.2642 12.8223 26.1548C12.7677 24.9554 12.7568 24.5951 12.7568 21.5567C12.7568 18.5184 12.7677 18.16 12.8223 16.9605C12.873 15.8512 13.0584 15.2491 13.2141 14.848C13.4203 14.3171 13.6673 13.9378 14.0655 13.5396C14.4638 13.1414 14.843 12.8948 15.374 12.6881C15.7751 12.5317 16.3774 12.3468 17.4867 12.2958C18.5363 12.2484 18.9431 12.2342 21.0637 12.2318V12.2347ZM28.1578 14.1239C27.404 14.1239 26.7924 14.7347 26.7924 15.4888C26.7924 16.2426 27.404 16.8541 28.1578 16.8541C28.9116 16.8541 29.5231 16.2426 29.5231 15.4888C29.5231 14.735 28.9116 14.1239 28.1578 14.1239ZM22.0844 15.7192C18.8576 15.7192 16.2414 18.3354 16.2414 21.5622C16.2414 24.789 18.8576 27.404 22.0844 27.404C25.3112 27.404 27.9265 24.789 27.9265 21.5622C27.9265 18.3354 25.3112 15.7192 22.0844 15.7192ZM22.0844 17.7696C24.1789 17.7696 25.877 19.4675 25.877 21.5622C25.877 23.6567 24.1789 25.3548 22.0844 25.3548C19.9897 25.3548 18.2917 23.6567 18.2917 21.5622C18.2917 19.4675 19.9897 17.7696 22.0844 17.7696Z"
+                  fill="white"
                 />
-              </Link>
-              <Link href="#" className="w-[33px]">
-                <img
-                  src="https://cdn.builder.io/api/v1/image/assets/ca7ec7c7d94147318bebe8b1c8ccdcac/51cbd4224e98b670383d94dc0ca92da399bb6649?placeholderIfAbsent=true"
-                  alt="LinkedIn"
-                  className="aspect-square w-[33px] object-contain"
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="44"
+                height="43"
+                viewBox="0 0 44 43"
+                fill="none"
+              >
+                <path
+                  opacity="0.1"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M0.75 21.5623C0.75 9.78026 10.3013 0.229004 22.0833 0.229004C33.8654 0.229004 43.4167 9.78026 43.4167 21.5623C43.4167 33.3444 33.8654 42.8957 22.0833 42.8957C10.3013 42.8957 0.75 33.3444 0.75 21.5623Z"
+                  fill="white"
                 />
-              </Link>
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M30.9737 14.2283C31.9528 14.497 32.7239 15.2886 32.9856 16.294C33.4611 18.116 33.4611 21.9178 33.4611 21.9178C33.4611 21.9178 33.4611 25.7194 32.9856 27.5416C32.7239 28.5469 31.9528 29.3386 30.9737 29.6074C29.1992 30.0955 22.0833 30.0955 22.0833 30.0955C22.0833 30.0955 14.9674 30.0955 13.1929 29.6074C12.2138 29.3386 11.4427 28.5469 11.181 27.5416C10.7056 25.7194 10.7056 21.9178 10.7056 21.9178C10.7056 21.9178 10.7056 18.116 11.181 16.294C11.4427 15.2886 12.2138 14.497 13.1929 14.2283C14.9674 13.74 22.0833 13.74 22.0833 13.74C22.0833 13.74 29.1992 13.74 30.9737 14.2283ZM19.95 18.7177V25.8288L25.6389 22.2734L19.95 18.7177Z"
+                  fill="white"
+                />
+              </svg>
             </div>
           </div>
         </div>
-      </footer>
+
+        <div className="flex justify-between gap-30">
+          <div className="leading-8">
+            <h2 className="text-white text-xl mb-2">Company</h2>
+            <h3 className="text-white text-md">About Us</h3>
+            <h3 className="text-white text-md">Blog</h3>
+            <h3 className="text-white text-md">Contact Us</h3>
+            <h3 className="text-white text-md">Pricing</h3>
+            <h3 className="text-white text-md">Testimonials</h3>
+          </div>
+          <div className="leading-8">
+            <h2 className="text-white text-xl mb-2">Support</h2>
+            <h3 className="text-white text-md">Help center</h3>
+            <h3 className="text-white text-md">Terms and Service</h3>
+            <h3 className="text-white text-md">Legal</h3>
+            <h3 className="text-white text-md">Privacy Policy</h3>
+            <h3 className="text-white text-md">Status</h3>
+          </div>
+          <div>
+            <h2 className="text-white text-xl mb-2">Stay up to date</h2>
+            <div className="flex items-center gap-2 bg-white/30 px-4 py-1.5 rounded-lg w-full active:decoration-none">
+              <input
+                type="text"
+                placeholder="Enter your email"
+                className="text-white text-md focus:outline-none focus:ring-0 focus:border-0"
+              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 25 25"
+                fill="none"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M23.4571 1.6562C23.7288 1.92784 23.8208 2.33107 23.6939 2.69366L16.6939 22.6937C16.5584 23.0807 16.2004 23.3458 15.7908 23.3625C15.3811 23.3792 15.0027 23.1441 14.8362 22.7695L10.9924 14.1209L2.34387 10.2771C1.96919 10.1106 1.73412 9.73223 1.75084 9.32255C1.76755 8.91287 2.03265 8.5549 2.41965 8.41945L22.4197 1.41945C22.7822 1.29255 23.1855 1.38456 23.4571 1.6562ZM12.9428 13.5848L15.6394 19.6522L20.3585 6.169L12.9428 13.5848ZM18.9443 4.75478L5.46108 9.47392L11.5285 12.1706L18.9443 4.75478Z"
+                  fill="white"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
