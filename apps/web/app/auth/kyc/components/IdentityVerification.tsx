@@ -117,7 +117,7 @@ export default function IdentityVerification({ onBack, onProceed }: IdentityVeri
           </div>
         </div>
       )}
-        <main className="bg-white shadow-xl rounded-[40px] px-14 py-12 w-full max-w-6xl backdrop-blur-[17.247573852539062px] max-md:px-6">
+        <main className="bg-[#FFFFFC] shadow-xl rounded-[40px] px-14 py-12 w-full max-w-6xl backdrop-blur-[17.247573852539062px] max-md:px-6">
         <div className="flex flex-col items-start px-10 pt-9 pb-36 max-w-full backdrop-blur-[17.247573852539062px] rounded-[40px] w-[1112px] max-md:px-5 max-md:pb-24">
             <header className="flex flex-col max-w-full font-bold text-slate-950 w-[797px]">
             <BackButton onClick={handleBackClick} />

@@ -10,6 +10,7 @@ import EmiratesPage from "./components/EmiratesidPage";
 import { SourceOfFundsForm } from "./components/SourceOfFunds";
 import AccreditationForm from "./components/AccreditationForm";
 import { useRouter } from 'next/navigation'
+import EmploymentStatusForm from "./components/EmploymentStatusForm";
 
 export default function Home() {
   const router = useRouter();
@@ -41,7 +42,10 @@ export default function Home() {
           <IdentityVerification onBack={handleBack} onProceed={handleProceed} />
         )}
         {step === 6 && <AccreditationForm onProceed={handleProceed} onBack={handleBack} />}
-        {step === 7 && <SourceOfFundsForm onBack={handleBack} />}
+        {step === 7 && (
+          <SourceOfFundsForm onBack={handleBack} onProceed={handleProceed}/>
+        ) }
+        {step=== 8 && <EmploymentStatusForm onProceed={handleProceed} onBack={handleBack}/>}
       </div>
     </div>
   );

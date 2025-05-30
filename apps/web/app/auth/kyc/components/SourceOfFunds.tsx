@@ -5,16 +5,23 @@ import { FundingOption } from "./FundingOption";
 
 interface SourceOfFundsFormProps {
   onBack?: () => void;
+  onProceed?: ()=> void;
 }
 
-export function SourceOfFundsForm({ onBack }: SourceOfFundsFormProps) {
+export function SourceOfFundsForm({ onBack,onProceed }: SourceOfFundsFormProps) {
   const handleBackClick = () => {
     if (onBack) onBack();
   };
 
   const handleOptionClick = (option: string) => {
+   
     // Handle option selection
     console.log(`Selected option: ${option}`);
+  };
+  const handleClick = () => {
+    if (onProceed) {
+      onProceed();
+    }
   };
 
   return (
@@ -33,6 +40,7 @@ export function SourceOfFundsForm({ onBack }: SourceOfFundsFormProps) {
                 We need to know how you acquired the money for your
                 investments in order to keep you and Valura.AI safe
               </p>
+              
             </section>
           </div>
         </div>
@@ -44,6 +52,7 @@ export function SourceOfFundsForm({ onBack }: SourceOfFundsFormProps) {
                 icon="https://cdn.builder.io/api/v1/image/assets/TEMP/7e54bea0cbe8c3ee65b374ca5fdc69c5389ff97b?placeholderIfAbsent=true&apiKey=f7cca6aaaeb240aca17eb062f7db0790"
                 label="Income"
                 onClick={() => handleOptionClick("Income")}
+                onProceed={handleClick}
               />
 
               <FundingOption
@@ -51,20 +60,25 @@ export function SourceOfFundsForm({ onBack }: SourceOfFundsFormProps) {
                 label="Investments"
                 onClick={() => handleOptionClick("Investments")}
                 className="py-8 gap-7 px-11"
+                onProceed={handleClick}
               />
 
               <FundingOption
                 icon="https://cdn.builder.io/api/v1/image/assets/TEMP/defed331566a35d32e4c9b38c1c199b460e6b1cb?placeholderIfAbsent=true&apiKey=f7cca6aaaeb240aca17eb062f7db0790"
                 label="Inheritance"
                 onClick={() => handleOptionClick("Inheritance")}
+                onProceed={handleClick}
               />
 
               <button
                 className="px-16 py-8 whitespace-nowrap bg-white rounded-[30px] max-md:px-5 max-md:max-w-full w-full text-left text-base text-slate-950"
                 onClick={() => handleOptionClick("Others")}
+                
               >
                 Others
               </button>
+              
+              
             </div>
           </div>
         </div>

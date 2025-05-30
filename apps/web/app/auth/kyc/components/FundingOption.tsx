@@ -1,6 +1,7 @@
 "use client";
 import * as React from "react";
 import { useRouter } from "next/navigation";
+import { on } from "events";
 
 interface FundingOptionProps {
   icon: string;
@@ -8,6 +9,7 @@ interface FundingOptionProps {
   href?: string; // URL to navigate to
   onClick?: () => void;
   className?: string;
+  onProceed?: () => void;
 }
 
 export function FundingOption({
@@ -15,11 +17,13 @@ export function FundingOption({
   label,
   href,
   onClick,
+  onProceed,
   className = "",
 }: FundingOptionProps) {
   const router = useRouter();
 
   const handleClick = () => {
+    if (onProceed) onProceed();
     if (onClick) onClick();
     if (href) router.push(href); // Navigate to the provided URL
   };
