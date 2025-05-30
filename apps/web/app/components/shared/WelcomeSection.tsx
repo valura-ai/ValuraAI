@@ -19,7 +19,7 @@ export const WelcomeSection = ({
     if (onBack) {
       onBack();
     } else if (isForgotPassword) {
-      window.location.reload();
+      router.push("/auth?mode=signin");
     } else {
       router.push("/");
     }

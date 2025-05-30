@@ -19,6 +19,11 @@ function AuthContent() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
+    const mode = searchParams.get("mode");
+    if (mode === "signup") {
+      setIsSignUp(true);
+    }
+
     // Check for error in URL
     const errorParam = searchParams.get("error");
     if (errorParam) {

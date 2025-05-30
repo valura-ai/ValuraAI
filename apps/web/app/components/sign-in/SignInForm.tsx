@@ -1,6 +1,7 @@
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Checkbox } from "../ui/checkbox";
+import { useRouter } from "next/navigation";
 
 interface SignInFormProps {
   email: string;
@@ -29,6 +30,13 @@ export const SignInForm = ({
   setShowForgotPassword,
   onSignUpClick
 }: SignInFormProps) => {
+  const router = useRouter();
+
+  const handleSignUpClick = () => {
+    router.push("/auth?mode=signup");
+    onSignUpClick();
+  };
+
   return (
     <>
       <div className="text-center mb-8">
@@ -44,7 +52,7 @@ export const SignInForm = ({
               Don't have an Account?
             </div>
             <button
-              onClick={onSignUpClick}
+              onClick={handleSignUpClick}
               className="text-green-600 text-sm font-semibold hover:underline"
             >
               Sign up

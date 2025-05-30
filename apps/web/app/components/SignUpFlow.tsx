@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { SignUpBoxName } from "./SignUpBoxName";
 import { SignUpBox } from "./SignUpBox";
 import { EmailVerification } from "./EmailVerification";
@@ -11,6 +12,7 @@ interface SignUpFlowProps {
 }
 
 export const SignUpFlow = ({ onSignInClick }: SignUpFlowProps) => {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState<SignUpStep>("name");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -29,7 +31,7 @@ export const SignUpFlow = ({ onSignInClick }: SignUpFlowProps) => {
 
   const handleBack = () => {
     if (currentStep === "name") {
-      window.location.reload();
+      router.push("/");
     } else if (currentStep === "verification") {
       setCurrentStep("credentials");
     } else if (currentStep === "credentials") {
@@ -38,6 +40,7 @@ export const SignUpFlow = ({ onSignInClick }: SignUpFlowProps) => {
   };
 
   const handleSignIn = () => {
+    router.push("/auth?mode=signin");
     onSignInClick();
   };
 

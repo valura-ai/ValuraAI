@@ -120,7 +120,16 @@ export const SignInBox = ({ onSignUpClick }: SignInBoxProps) => {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-6xl grid grid-cols-2">
-        <WelcomeSection isForgotPassword={showForgotPassword} />
+        <WelcomeSection 
+          isForgotPassword={showForgotPassword} 
+          onBack={() => {
+            if (showForgotPassword) {
+              setShowForgotPassword(false);
+            } else {
+              router.push("/");
+            }
+          }}
+        />
         <div className="w-full max-w-md">
           <div className="bg-white rounded-3xl shadow-2xl p-8">
             {showForgotPassword ? (
